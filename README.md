@@ -148,3 +148,4 @@ This tool is for educational and testing purposes only. Users should comply with
 
 hosts.txt from
 https://github.com/Ruddernation-Designs/Adobe-URL-Block-List/blob/master/hosts
+https://github.com/wangzhenjjcn/AdobeGenp
