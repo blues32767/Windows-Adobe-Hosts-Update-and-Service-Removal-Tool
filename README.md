@@ -1,4 +1,4 @@
-# Adobe 封鎖工具 (Adobe Blocker Tool)
+# Windows Adobe Hosts 一鍵更新工具
 
 [![Windows Compatible](https://img.shields.io/badge/Platform-Windows-blue.svg)](https://www.microsoft.com/windows)
 
