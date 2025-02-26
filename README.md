@@ -4,7 +4,7 @@
 
 這個一鍵更新hosts工具可以幫助您更新 Adobe 軟體的啟用和驗證伺服器，防止 Adobe 軟體連線到授權伺服器。
 
-<details>
+
 中文說明
 
 ## 使用方法
@@ -30,9 +30,7 @@
 - 原始 hosts 檔案會被備份到 `C:\Windows\System32\drivers\etc\hosts.bak`
 - 如果您需要恢復原始設定，只需將備份檔案重新命名為 hosts
 
-</details>
 
-<details>
 English Instructions
 
 ## How to Use
