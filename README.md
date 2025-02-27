@@ -80,7 +80,7 @@ This tool is for educational and testing purposes only. Users should comply with
 ## 快速開始指南
 
 1. **下載檔案**: 將 `Update-Hosts-adobe.ps1` 和 `hosts.txt` 放在同一個資料夾
-2. **執行腳本**: 右鍵點擊腳本檔案並選擇「用PowerShell執行」
+2. **執行腳本**: 右鍵點擊`Update-Hosts-adobe.ps1`腳本檔案並選擇「用PowerShell執行」
 3. **確認執行**: 如果出現提示，輸入 Y 繼續
 
 ## 目錄
