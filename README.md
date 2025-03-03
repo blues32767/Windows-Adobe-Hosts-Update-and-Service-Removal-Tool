@@ -3,15 +3,17 @@
 [![Windows Compatible](https://img.shields.io/badge/Platform-Windows-blue.svg)](https://www.microsoft.com/windows)
 [![PowerShell](https://img.shields.io/badge/PowerShell-3.0+-5391FE.svg)](https://microsoft.com/PowerShell)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Release](https://img.shields.io/github/v/release/blues32767/Update-Hosts-adobe-powershell)](https://github.com/blues32767/Update-Hosts-adobe-powershell/releases/latest)
 
 <details>
 <summary>English</summary>
 
 ## Quick Start Guide
 
-1. **Download Files**: Place `Run-Adobe-Hosts-Update.bat`, `Update-Hosts-adobe.ps1` and `hosts.txt` in the same folder
-2. **Run the Script**: Right-click on `Run-Adobe-Hosts-Update.bat` and select "Run as administrator"
-3. **Confirm**: If prompted, enter Y to continue
+1. **Download Files**: [Download the latest release](https://github.com/blues32767/Update-Hosts-adobe-powershell/releases/tag/v2.20250303)
+2. **Extract Files**: Extract all files from the downloaded ZIP to the same folder
+3. **Run the Script**: Right-click on `Run-Adobe-Hosts-Update.bat` and select "Run as administrator"
+4. **Confirm**: If prompted, enter Y to continue
 
 ## Table of Contents
 - [Features](#features)
@@ -39,7 +41,8 @@
 ## How to Use
 
 1. **Download Files**
-   - Place `Run-Adobe-Hosts-Update.bat`, `Update-Hosts-adobe.ps1` and `hosts.txt` in the same folder
+   - [Download the latest release (v2.20250303)](https://github.com/blues32767/Update-Hosts-adobe-powershell/releases/tag/v2.20250303)
+   - Extract all files from the ZIP archive
 
 2. **Run the Script**
    - Right-click on the `Run-Adobe-Hosts-Update.bat` file
@@ -73,7 +76,7 @@
 This tool is for educational and testing purposes only. Users should comply with local laws and regulations and assume all risks and responsibilities associated with using this tool. The author is not responsible for any loss or damage that may result from using this tool.
 
 ---
-2025/3/3 v2. Updated to address the issue in Windows 11 where the error message "Script execution is disabled on this system... Visit https:/go.microsoft.com/fwlink/?LinkID=135170..." appears. Now using cmd method to bypass PowerShell execution policy checks.
+2025/3/3 v2.20250303 Updated to address the issue in Windows 11 where the error message "Script execution is disabled on this system... Visit https:/go.microsoft.com/fwlink/?LinkID=135170..." appears. Now using cmd method to bypass PowerShell execution policy checks.
 
 hosts.txt from
 https://github.com/Ruddernation-Designs/Adobe-URL-Block-List/blob/master/hosts
@@ -83,13 +86,13 @@ https://github.com/wangzhenjjcn/AdobeGenp
 
 <details open>
 <summary>中文</summary>
-[Chinese content remains as is]
 
 ## 快速開始指南
 
-1. **下載檔案**: 將 `Update-Hosts-adobe.ps1` 和 `hosts.txt` 放在同一個資料夾
-2. **執行腳本**: 右鍵點擊`Update-Hosts-adobe.ps1`腳本檔案並選擇「用PowerShell執行」
-3. **確認執行**: 如果出現提示，輸入 Y 繼續
+1. **下載檔案**: [下載最新版本](https://github.com/blues32767/Update-Hosts-adobe-powershell/releases/tag/v2.20250303)
+2. **解壓縮檔案**: 將下載的ZIP檔案中的所有檔案解壓縮到同一個資料夾
+3. **執行腳本**: 右鍵點擊`Run-Adobe-Hosts-Update.bat`並選擇「以系統管理員身分執行」
+4. **確認執行**: 如果出現提示，輸入 Y 繼續
 
 ## 目錄
 - [功能說明](#功能說明-features)
@@ -117,11 +120,12 @@ https://github.com/wangzhenjjcn/AdobeGenp
 ## 使用方法 (How to Use)
 
 1. **下載檔案** (Download Files)
-   - Update-Hosts-adobe.ps1、hosts.txt 放在同一個資料夾
+   - [下載最新版本 (v2.20250303)](https://github.com/blues32767/Update-Hosts-adobe-powershell/releases/tag/v2.20250303)
+   - 解壓縮ZIP檔案中的所有檔案
 
 2. **執行腳本** (Run the Script)
-   - 右鍵點擊 `Update-Hosts-adobe.ps1` 檔案
-   - 選擇「用PowerShell執行」
+   - 右鍵點擊 `Run-Adobe-Hosts-Update.bat` 檔案
+   - 選擇「以系統管理員身分執行」
    - 如果出現安全性提示，請輸入Y(是)
 
 3. **完成後** (After Completion)
@@ -153,7 +157,7 @@ https://github.com/wangzhenjjcn/AdobeGenp
 </details>
 
 ---
-2025/3/3 v2. 更新以解決Windows 11中出現「因為這個系統上已停用指令碼執行，所以無法載入...網址為 https:/go.microsoft.com/fwlink/?LinkID=135170...」錯誤訊息的問題。現在使用cmd方法繞過PowerShell執行原則檢查。
+2025/3/3 v2.20250303 更新以解決Windows 11中出現「因為這個系統上已停用指令碼執行，所以無法載入...網址為 https:/go.microsoft.com/fwlink/?LinkID=135170...」錯誤訊息的問題。現在使用cmd方法繞過PowerShell執行原則檢查。
 
 hosts.txt from
 https://github.com/Ruddernation-Designs/Adobe-URL-Block-List/blob/master/hosts
