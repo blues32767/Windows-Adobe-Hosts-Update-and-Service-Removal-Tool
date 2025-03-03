@@ -10,7 +10,7 @@
 
 ## Quick Start Guide
 
-1. **Download Files**: [Download the latest release][(https://github.com/blues32767/Update-Hosts-adobe-powershell/releases/tag/v2.20250303)](https://github.com/blues32767/Update-Hosts-adobe-powershell/releases/download/v2.20250303/Update-Hosts-adobe.zip)
+1. **Download Files**: [Download the latest release](https://github.com/blues32767/Update-Hosts-adobe-powershell/releases/download/v2.20250303/Update-Hosts-adobe.zip)
 2. **Extract Files**: Extract all files from the downloaded ZIP to the same folder
 3. **Run the Script**: Right-click on `Run-Adobe-Hosts-Update.bat` and select "Run as administrator"
 4. **Confirm**: If prompted, enter Y to continue
@@ -41,7 +41,7 @@
 ## How to Use
 
 1. **Download Files**
-   - [Download the latest release (v2.20250303)](https://github.com/blues32767/Update-Hosts-adobe-powershell/releases/tag/v2.20250303)
+   - [Download the latest release (v2.20250303)](https://github.com/blues32767/Update-Hosts-adobe-powershell/releases/download/v2.20250303/Update-Hosts-adobe.zip)
    - Extract all files from the ZIP archive
 
 2. **Run the Script**
