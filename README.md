@@ -10,7 +10,7 @@
 
 ## Quick Start Guide
 
-1. **Download Files**: [Download the latest release](https://github.com/blues32767/Update-Hosts-adobe-powershell/releases/tag/v2.20250303)
+1. **Download Files**: [Download the latest release][(https://github.com/blues32767/Update-Hosts-adobe-powershell/releases/tag/v2.20250303)](https://github.com/blues32767/Update-Hosts-adobe-powershell/releases/download/v2.20250303/Update-Hosts-adobe.zip)
 2. **Extract Files**: Extract all files from the downloaded ZIP to the same folder
 3. **Run the Script**: Right-click on `Run-Adobe-Hosts-Update.bat` and select "Run as administrator"
 4. **Confirm**: If prompted, enter Y to continue
@@ -89,7 +89,7 @@ https://github.com/wangzhenjjcn/AdobeGenp
 
 ## 快速開始指南
 
-1. **下載檔案**: [下載最新版本](https://github.com/blues32767/Update-Hosts-adobe-powershell/releases/tag/v2.20250303)
+1. **下載檔案**: [下載最新版本]([https://github.com/blues32767/Update-Hosts-adobe-powershell/releases/tag/v2.20250303](https://github.com/blues32767/Update-Hosts-adobe-powershell/releases/download/v2.20250303/Update-Hosts-adobe.zip))
 2. **解壓縮檔案**: 將下載的ZIP檔案中的所有檔案解壓縮到同一個資料夾
 3. **執行腳本**: 右鍵點擊`Run-Adobe-Hosts-Update.bat`並選擇「以系統管理員身分執行」
 4. **確認執行**: 如果出現提示，輸入 Y 繼續
