@@ -160,6 +160,7 @@ https://github.com/wangzhenjjcn/AdobeGenp
 </details>
 
 ---
+2025/3/3 v2. 更新以解決Windows 11中出現「因為這個系統上已停用指令碼執行，所以無法載入...網址為 https:/go.microsoft.com/fwlink/?LinkID=135170...」錯誤訊息的問題。現在使用cmd方法繞過PowerShell執行原則檢查。
 
 hosts.txt from
 https://github.com/Ruddernation-Designs/Adobe-URL-Block-List/blob/master/hosts
