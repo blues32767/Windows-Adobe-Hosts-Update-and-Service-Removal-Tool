@@ -72,13 +72,6 @@
 
 This tool is for educational and testing purposes only. Users should comply with local laws and regulations and assume all risks and responsibilities associated with using this tool. The author is not responsible for any loss or damage that may result from using this tool.
 
-</details>
-
-<details open>
-<summary>中文</summary>
-[Chinese content remains as is]
-</details>
-
 ---
 2025/3/3 v2. Updated to address the issue in Windows 11 where the error message "Script execution is disabled on this system... Visit https:/go.microsoft.com/fwlink/?LinkID=135170..." appears. Now using cmd method to bypass PowerShell execution policy checks.
 
