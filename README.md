@@ -9,8 +9,8 @@
 
 ## Quick Start Guide
 
-1. **Download Files**: Place `Update-Hosts-adobe.ps1` and `hosts.txt` in the same folder
-2. **Run the Script**: Right-click on the script file and select "Run with PowerShell"
+1. **Download Files**: Place `Run-Adobe-Hosts-Update.bat`, `Update-Hosts-adobe.ps1` and `hosts.txt` in the same folder
+2. **Run the Script**: Right-click on `Run-Adobe-Hosts-Update.bat` and select "Run as administrator"
 3. **Confirm**: If prompted, enter Y to continue
 
 ## Table of Contents
@@ -39,11 +39,11 @@
 ## How to Use
 
 1. **Download Files**
-   - Place Update-Hosts-adobe.ps1 and hosts.txt in the same folder
+   - Place `Run-Adobe-Hosts-Update.bat`, `Update-Hosts-adobe.ps1` and `hosts.txt` in the same folder
 
 2. **Run the Script**
-   - Right-click on the `Update-Hosts-adobe.ps1` file
-   - Select "Run with PowerShell"
+   - Right-click on the `Run-Adobe-Hosts-Update.bat` file
+   - Select "Run as administrator"
    - If a security prompt appears, enter Y (Yes)
 
 3. **After Completion**
@@ -76,6 +76,21 @@ This tool is for educational and testing purposes only. Users should comply with
 
 <details open>
 <summary>中文</summary>
+[Chinese content remains as is]
+</details>
+
+---
+2025/3/3 v2. Updated to address the issue in Windows 11 where the error message "Script execution is disabled on this system... Visit https:/go.microsoft.com/fwlink/?LinkID=135170..." appears. Now using cmd method to bypass PowerShell execution policy checks.
+
+hosts.txt from
+https://github.com/Ruddernation-Designs/Adobe-URL-Block-List/blob/master/hosts
+https://github.com/wangzhenjjcn/AdobeGenp
+
+</details>
+
+<details open>
+<summary>中文</summary>
+[Chinese content remains as is]
 
 ## 快速開始指南
 
