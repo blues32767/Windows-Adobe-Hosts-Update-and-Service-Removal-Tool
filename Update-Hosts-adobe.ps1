@@ -1,3 +1,27 @@
+# 檢查當前執行策略 (Check current execution policy)
+$currentPolicy = Get-ExecutionPolicy -Scope CurrentUser
+Write-Host "當前執行策略為: $currentPolicy (Current execution policy: $currentPolicy)" -ForegroundColor Yellow
+
+# 如果策略為 Restricted，提示使用者並要求更改
+if ($currentPolicy -eq "Restricted") {
+    Write-Host "錯誤：當前執行策略為 Restricted，無法運行腳本。 (Error: Current execution policy is Restricted, script cannot run.)" -ForegroundColor Red
+    Write-Host "需要將執行策略更改為 Unrestricted 以繼續。 (Need to change execution policy to Unrestricted to proceed.)" -ForegroundColor Yellow
+    $response = Read-Host "是否同意更改執行策略？(輸入 'Y' 同意，輸入其他則退出) (Do you agree to change the policy? Enter 'Y' to agree, anything else to exit)"
+    
+    if ($response -eq 'Y' -or $response -eq 'y') {
+        try {
+            Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Unrestricted -Force
+            Write-Host "執行策略已成功更改為 Unrestricted (Execution policy successfully changed to Unrestricted)" -ForegroundColor Green
+        } catch {
+            Write-Host "更改執行策略失敗，請以管理員身份運行此腳本: $_ (Failed to change execution policy, please run as administrator: $_)" -ForegroundColor Red
+            exit
+        }
+    } else {
+        Write-Host "使用者不同意更改執行策略，腳本將退出。 (User did not agree to change policy, script will exit.)" -ForegroundColor Red
+        exit
+    }
+}
+
 # 檢查腳本是否以管理員權限運行 (Check if script is running with administrator privileges)
 if (-NOT ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
     # 如果不是，則重新啟動程式並要求管理員權限 (If not, restart the script with admin rights)
@@ -159,4 +183,18 @@ if (Test-Path -Path $uwaPath) {
 
 # 暫停執行程序，讓使用者查看結果 (Pause execution to let user see the results)
 Write-Host "`n所有操作已完成！(All operations completed!)" -ForegroundColor Cyan
+
+# 在腳本結束前顯示作者和版本信息
+$authorInfo = @"
+
+====================================================
+   Adobe Hosts Update and Service Removal Tool
+   Author/作者: blues32767
+   Version/版本: v2.20250303
+   https://github.com/blues32767
+====================================================
+
+"@
+
+Write-Host $authorInfo -ForegroundColor Green
 Pause
