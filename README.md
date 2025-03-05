@@ -88,12 +88,12 @@ https://github.com/wangzhenjjcn/AdobeGenp
 <summary>中文</summary>
 
 ## 快速開始指南
--0.先去windows的應用程式，把Adobe genuine service(驗證程式)移除。
--1.下載 [Update-Hosts-adobe.zip ](https://github.com/blues32767/Update-Hosts-adobe-powershell/releases/download/v2.20250303/Update-Hosts-adobe.zip)
--2. **解壓縮檔案**: 將下載的ZIP檔案中的所有檔案解壓縮到同一個資料夾
--3. **執行腳本**: 右鍵點擊`Run-Adobe-Hosts-Update.bat`並選擇「以系統管理員身分執行」
--4. **確認執行**: 如果出現提示，輸入 Y 繼續
--5.若還是會跳出，請移除全部的adobe軟體後，再重做一次。
+   0.先去windows的應用程式，把Adobe genuine service(驗證程式)移除。
+   1.下載 [Update-Hosts-adobe.zip ](https://github.com/blues32767/Update-Hosts-adobe-powershell/releases/download/v2.20250303/Update-Hosts-adobe.zip)
+   2. **解壓縮檔案**: 將下載的ZIP檔案中的所有檔案解壓縮到同一個資料夾
+   3. **執行腳本**: 右鍵點擊`Run-Adobe-Hosts-Update.bat`並選擇「以系統管理員身分執行」
+   4. **確認執行**: 如果出現提示，輸入 Y 繼續
+   *若還是會跳出，請移除全部的adobe軟體後，重開機，再重做一次"執行腳本"，再安裝adobe，再執行腳本。
 
 ## 目錄
 - [功能說明](#功能說明-features)
