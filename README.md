@@ -1,4 +1,5 @@
 # Windows Adobe Hosts Update and Service Removal Tool
+# Windows Adob​​e Hosts 更新與服務移除工具
 
 [![Windows Compatible](https://img.shields.io/badge/Platform-Windows-blue.svg)](https://www.microsoft.com/windows)
 [![PowerShell](https://img.shields.io/badge/PowerShell-3.0+-5391FE.svg)](https://microsoft.com/PowerShell)
