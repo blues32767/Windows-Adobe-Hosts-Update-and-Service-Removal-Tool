@@ -12,7 +12,7 @@
 
 ## Quick Start Guide
 0. First go to Windows applications and remove the Adobe genuine service software.  
-1.Download Files https://github.com/blues32767/Windows-Adobe-Hosts-Update-and-Service-Removal-Tool/releases/download/v2.20250313v2/Update-Hosts-adobe.zip
+1.Download Files :(https://github.com/blues32767/Windows-Adobe-Hosts-Update-and-Service-Removal-Tool/releases/download/v2.20250313v2/Update-Hosts-adobe.zip)
 2. **Extract Files**: Extract all files from the downloaded ZIP to the same folder  
 3. **Run the Script**: Right-click on `Run-Adobe-Hosts-Update.bat` and select "Run as administrator"  
 4. **Confirm**: If prompted, enter Y to continue  
@@ -91,7 +91,7 @@ https://github.com/wangzhenjjcn/AdobeGenp
 
 ## 快速開始指南
    0. 先去windows的應用程式，把Adobe genuine service(驗證程式)移除。  
-   1. 下載 [Update-Hosts-adobe.zip ](https://github.com/blues32767/Update-Hosts-adobe-powershell/releases/download/v2.20250303/Update-Hosts-adobe.zip)  
+   1. 下載 [Update-Hosts-adobe.zip ](https://github.com/blues32767/Windows-Adobe-Hosts-Update-and-Service-Removal-Tool/releases/download/v2.20250313v2/Update-Hosts-adobe.zip)  
    2. **解壓縮檔案**: 將下載的ZIP檔案中的所有檔案解壓縮到同一個資料夾  
    3. **執行腳本**: 右鍵點擊`Run-Adobe-Hosts-Update.bat`並選擇「以系統管理員身分執行」  
    4. **確認執行**: 如果出現提示，輸入 Y 繼續  
