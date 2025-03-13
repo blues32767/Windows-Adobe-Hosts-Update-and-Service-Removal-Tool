@@ -5,7 +5,7 @@
 [![PowerShell](https://img.shields.io/badge/PowerShell-3.0+-5391FE.svg)](https://microsoft.com/PowerShell)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Release](https://img.shields.io/github/v/release/blues32767/Update-Hosts-adobe-powershell)](https://github.com/blues32767/Update-Hosts-adobe-powershell/releases/latest)
-
+*20250313 update host
 <details>
 <summary>English</summary>
 
@@ -163,5 +163,6 @@ https://github.com/wangzhenjjcn/AdobeGenp
 2025/3/3 v2.20250303 更新以解決Windows 11中出現「因為這個系統上已停用指令碼執行，所以無法載入...網址為 https:/go.microsoft.com/fwlink/?LinkID=135170...」錯誤訊息的問題。現在使用cmd方法繞過PowerShell執行原則檢查。
 
 hosts.txt from
+https://github.com/ignaciocastro/a-dove-is-dumb
 https://github.com/Ruddernation-Designs/Adobe-URL-Block-List/blob/master/hosts
 https://github.com/wangzhenjjcn/AdobeGenp
