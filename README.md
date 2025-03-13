@@ -43,7 +43,7 @@
 ## How to Use
 
 1. **Download Files**
-   - [Download the latest release (v2.20250303)](https://github.com/blues32767/Update-Hosts-adobe-powershell/releases/download/v2.20250303/Update-Hosts-adobe.zip)
+   - [Download the latest release](https://github.com/blues32767/Windows-Adobe-Hosts-Update-and-Service-Removal-Tool/releases/download/v2.20250313v2/Update-Hosts-adobe.zip)  
    - Extract all files from the ZIP archive
 
 2. **Run the Script**
@@ -124,7 +124,7 @@ https://github.com/wangzhenjjcn/AdobeGenp
 ## 使用方法 (How to Use)
 
 1. **下載檔案** (Download Files)
-   - [下載最新版本 (v2.20250303)](https://github.com/blues32767/Update-Hosts-adobe-powershell/releases/tag/v2.20250303)
+   - [下載最新版本](https://github.com/blues32767/Windows-Adobe-Hosts-Update-and-Service-Removal-Tool/releases/download/v2.20250313v2/Update-Hosts-adobe.zip)  
    - 解壓縮ZIP檔案中的所有檔案
 
 2. **執行腳本** (Run the Script)
