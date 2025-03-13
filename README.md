@@ -1,11 +1,12 @@
 # Windows Adobe Hosts Update and Service Removal Tool
 # Windows Adob​​e Hosts 更新與服務移除工具
+*20250313 update hosts.txt  
 
 [![Windows Compatible](https://img.shields.io/badge/Platform-Windows-blue.svg)](https://www.microsoft.com/windows)
 [![PowerShell](https://img.shields.io/badge/PowerShell-3.0+-5391FE.svg)](https://microsoft.com/PowerShell)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Release](https://img.shields.io/github/v/release/blues32767/Update-Hosts-adobe-powershell)](https://github.com/blues32767/Update-Hosts-adobe-powershell/releases/latest)
-*20250313 update host
+
 <details>
 <summary>English</summary>
 
