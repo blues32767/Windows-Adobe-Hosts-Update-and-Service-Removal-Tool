@@ -42,6 +42,7 @@ This PowerShell script is designed to update the Windows hosts file and remove A
 1. **從網址更新 hosts 檔案 / Update hosts file from URL**
    - 從 `https://a.dove.isdumb.one/list.txt` 下載 hosts 內容並更新系統檔案，移除重複項目。  
    - Downloads hosts content from `https://a.dove.isdumb.one/list.txt` and updates the system file, removing duplicates.
+   - Update hosts source: https://github.com/ignaciocastro/a-dove-is-dumb
 
 2. **清理 Adobe 服務 / Clean Adobe Services**
    - 停用並刪除 `AGSService` 和 `AAMUpdater` 服務。  
