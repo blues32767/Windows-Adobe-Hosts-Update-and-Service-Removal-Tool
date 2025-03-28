@@ -1,6 +1,3 @@
-以下是根據你的啟動方式（使用 `.bat` 檔案以管理員權限執行 `.ps1` 腳本）更新後的 GitHub README 文件。我將下載連結和啟動方式放在最前面，並保持中英文雙語格式。以下是完整的 README 內容：
-
----
 
 # Adobe Hosts Update and Service Removal Tool
 
