@@ -1,169 +1,128 @@
-# Windows Adobe Hosts Update and Service Removal Tool
-# Windows Adob​​e Hosts 更新與服務移除工具
-*20250313 update hosts.txt  
-
-[![Windows Compatible](https://img.shields.io/badge/Platform-Windows-blue.svg)](https://www.microsoft.com/windows)
-[![PowerShell](https://img.shields.io/badge/PowerShell-3.0+-5391FE.svg)](https://microsoft.com/PowerShell)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Release](https://img.shields.io/github/v/release/blues32767/Update-Hosts-adobe-powershell)](https://github.com/blues32767/Update-Hosts-adobe-powershell/releases/latest)
-
-<details>
-<summary>English</summary>
-
-## Quick Start Guide
-0. First go to Windows applications and remove the Adobe genuine service software.  
-1.Download Files :(https://github.com/blues32767/Windows-Adobe-Hosts-Update-and-Service-Removal-Tool/releases/download/v2.20250313v2/Update-Hosts-adobe-20250326.zip)
-2. **Extract Files**: Extract all files from the downloaded ZIP to the same folder  
-3. **Run the Script**: Right-click on `Run-Adobe-Hosts-Update.bat` and select "Run as administrator"  
-4. **Confirm**: If prompted, enter Y to continue  
-
-## Table of Contents
-- [Features](#features)
-- [Detailed Instructions](#how-to-use)
-- [Important Notes](#important-notes)
-- [System Requirements](#system-requirements)
-- [Disclaimer](#disclaimer)
-
-## Features
-
-1. **Update Hosts File**
-   - Automatically backs up the original hosts file
-   - Adds Adobe blocking list to the hosts file
-   - Clears DNS cache to ensure changes take effect immediately
-
-2. **Disable Adobe Services**
-   - Disables AGSService service
-   - Removes AGSService service
-   - Removes AAMUpdater service
-
-3. **Remove Adobe Related Folders**
-   - Deletes AdobeGCClient folder (C:\Program Files (x86)\Common Files\Adobe\AdobeGCClient)
-   - Deletes UWA folder (C:\Program Files (x86)\Common Files\Adobe\OOBE\PDApp\UWA)
-
-## How to Use
-
-1. **Download Files**
-   - [Download the latest release](https://github.com/blues32767/Windows-Adobe-Hosts-Update-and-Service-Removal-Tool/releases/download/v2.20250313v2/Update-Hosts-adobe-20250326.zip)  
-   - Extract all files from the ZIP archive
-
-2. **Run the Script**
-   - Right-click on the `Run-Adobe-Hosts-Update.bat` file
-   - Select "Run as administrator"
-   - If a security prompt appears, enter Y (Yes)
-
-3. **After Completion**
-   - The script will automatically back up your original hosts file
-   - Add the Adobe blocking list to your hosts file
-   - Clear DNS cache to ensure changes take effect immediately
-   - Disable and remove Adobe related services
-   - Remove specified Adobe folders
-   - Display success messages
-
-## Important Notes
-
-- Make sure all Adobe applications are closed before running
-- Administrator privileges are required to modify the hosts file and system services
-- Your original hosts file will be backed up to `C:\Windows\System32\drivers\etc\hosts.bak`
-- To restore original settings, simply rename the backup file to hosts
-- Deleted services and folders cannot be automatically restored, please make sure you really need to remove these items
-
-## System Requirements
-
-- Windows 7/8/10/11
-- PowerShell 3.0 or higher
-- Administrator privileges
-
-## Disclaimer
-
-This tool is for educational and testing purposes only. Users should comply with local laws and regulations and assume all risks and responsibilities associated with using this tool. The author is not responsible for any loss or damage that may result from using this tool.
+以下是根據你的啟動方式（使用 `.bat` 檔案以管理員權限執行 `.ps1` 腳本）更新後的 GitHub README 文件。我將下載連結和啟動方式放在最前面，並保持中英文雙語格式。以下是完整的 README 內容：
 
 ---
-2025/3/3 v2.20250303 Updated to address the issue in Windows 11 where the error message "Script execution is disabled on this system... Visit https:/go.microsoft.com/fwlink/?LinkID=135170..." appears. Now using cmd method to bypass PowerShell execution policy checks.
 
-hosts.txt from
-https://github.com/Ruddernation-Designs/Adobe-URL-Block-List/blob/master/hosts
-https://github.com/wangzhenjjcn/AdobeGenp
+# Adobe Hosts Update and Service Removal Tool
 
-</details>
+**版本/Version**: v3.20250328  
+**作者/Author**: blues32767  
+**GitHub**: [https://github.com/blues32767](https://github.com/blues32767)
 
-<details open>
-<summary>中文</summary>
+## 下載連結 / Download Link
 
-## 快速開始指南
-   0. 先去windows的應用程式，把Adobe genuine service(驗證程式)移除。  
-   1. 下載 [Update-Hosts-adobe.zip ](https://github.com/blues32767/Windows-Adobe-Hosts-Update-and-Service-Removal-Tool/releases/download/v2.20250313v2/Update-Hosts-adobe-20250326.zip)  
-   2. **解壓縮檔案**: 將下載的ZIP檔案中的所有檔案解壓縮到同一個資料夾  
-   3. **執行腳本**: 右鍵點擊`Run-Adobe-Hosts-Update.bat`並選擇「以系統管理員身分執行」  
-   4. **確認執行**: 如果出現提示，輸入 Y 繼續  
-   *若還是會跳出，請移除全部的adobe軟體後，重開機，再重做一次"執行腳本"，再安裝adobe，再執行腳本。
+下載最新版本 / Download the latest version:  
+[https://github.com/blues32767/Windows-Adobe-Hosts-Update-and-Service-Removal-Tool/releases/download/v2.20250328/Update-Hosts-adobe-hostsfromweb.zip](https://github.com/blues32767/Windows-Adobe-Hosts-Update-and-Service-Removal-Tool/releases/download/v2.20250328/Update-Hosts-adobe-hostsfromweb.zip)
 
+## 啟動方式 / How to Run
 
-## 目錄
-- [功能說明](#功能說明-features)
-- [詳細使用方法](#使用方法-how-to-use)
-- [注意事項](#注意事項-important-notes)
-- [系統要求](#系統要求-system-requirements)
-- [免責聲明](#免責聲明-disclaimer)
+此腳本透過 `.bat` 檔案以管理員權限啟動 PowerShell 腳本。請按照以下步驟執行：  
+This script uses a `.bat` file to launch the PowerShell script with administrator privileges. Follow these steps to run it:
 
-## 功能說明 (Features)
+1. **下載並解壓縮 / Download and Extract**  
+   - 下載上述 ZIP 檔案並解壓縮至任意目錄。  
+   - Download the ZIP file above and extract it to any directory.
 
-1. **更新 Hosts 檔案** (Update Hosts File)
-   - 自動備份原始 hosts 檔案
-   - 將 Adobe 封鎖清單加入到 hosts 檔案中
-   - 清除 DNS 快取以確保變更立即生效
+2. **執行 BAT 檔案 / Run the BAT File**  
+   - 雙擊解壓縮後的 `Update-Hosts-adobe.bat` 檔案，系統將自動以管理員權限運行 `Update-Hosts-adobe.ps1`。  
+   - Double-click the extracted `Update-Hosts-adobe.bat` file, and the system will automatically run `Update-Hosts-adobe.ps1` with administrator privileges.
 
-2. **停用 Adobe 服務** (Disable Adobe Services)
-   - 停用 AGSService 服務
-   - 刪除 AGSService 服務
-   - 刪除 AAMUpdater 服務
-
-3. **移除 Adobe 相關資料夾** (Remove Adobe Related Folders)
-   - 刪除 AdobeGCClient 資料夾 (C:\Program Files (x86)\Common Files\Adobe\AdobeGCClient)
-   - 刪除 UWA 資料夾 (C:\Program Files (x86)\Common Files\Adobe\OOBE\PDApp\UWA)
-
-## 使用方法 (How to Use)
-
-1. **下載檔案** (Download Files)
-   - [下載最新版本](https://github.com/blues32767/Windows-Adobe-Hosts-Update-and-Service-Removal-Tool/releases/download/v2.20250313v2/Update-Hosts-adobe-20250326.zip)  
-   - 解壓縮ZIP檔案中的所有檔案
-
-2. **執行腳本** (Run the Script)
-   - 右鍵點擊 `Run-Adobe-Hosts-Update.bat` 檔案
-   - 選擇「以系統管理員身分執行」
-   - 如果出現安全性提示，請輸入Y(是)
-
-3. **完成後** (After Completion)
-   - 腳本會自動備份您原有的 hosts 檔案
-   - 將 Adobe 封鎖清單加入到 hosts 檔案中
-   - 清除 DNS 快取以確保變更立即生效
-   - 停用並刪除 Adobe 相關服務
-   - 移除指定的 Adobe 資料夾
-   - 顯示成功訊息
-
-## 注意事項 (Important Notes)
-
-- 執行前請確保您已關閉所有 Adobe 應用程式
-- 需要系統管理員權限才能修改 hosts 檔案和系統服務
-- 原始 hosts 檔案會被備份到 `C:\Windows\System32\drivers\etc\hosts.bak`
-- 如果您需要恢復原始設定，只需將備份檔案重新命名為 hosts
-- 刪除的服務和資料夾無法自動恢復，請確保您真的需要移除這些項目
-
-## 系統要求 (System Requirements)
-
-- Windows 7/8/10/11
-- PowerShell 3.0 或更高版本
-- 系統管理員權限
-
-## 免責聲明 (Disclaimer)
-
-此工具僅供教育和測試目的使用。使用者應遵守當地法律法規，並自行承擔使用此工具的風險和責任。作者不對因使用此工具而可能導致的任何損失或損害負責。
-
-</details>
+3. **確認執行 / Confirm Execution**  
+   - 若出現 UAC（使用者帳戶控制）提示，請點擊「是 (Yes)」以授予管理員權限。  
+   - If a UAC (User Account Control) prompt appears, click "Yes" to grant administrator privileges.
 
 ---
-2025/3/3 v2.20250303 更新以解決Windows 11中出現「因為這個系統上已停用指令碼執行，所以無法載入...網址為 https:/go.microsoft.com/fwlink/?LinkID=135170...」錯誤訊息的問題。現在使用cmd方法繞過PowerShell執行原則檢查。
 
-hosts.txt from
-https://github.com/ignaciocastro/a-dove-is-dumb
-https://github.com/Ruddernation-Designs/Adobe-URL-Block-List/blob/master/hosts
-https://github.com/wangzhenjjcn/AdobeGenp
+## 簡介 / Introduction
+
+此 PowerShell 腳本旨在更新 Windows 的 hosts 檔案並清理 Adobe 相關的驗證服務與進程，以防止 Adobe Genuine Software Integrity Service (AGS) 等驗證機制干擾使用。它提供單次執行或每周自動更新的選項，並包含多項進階清理功能。
+
+This PowerShell script is designed to update the Windows hosts file and remove Adobe-related validation services and processes, preventing interference from mechanisms like Adobe Genuine Software Integrity Service (AGS). It offers options for one-time execution or weekly scheduled updates, with advanced cleanup features.
+
+---
+
+## 功能 / Features
+
+1. **從網址更新 hosts 檔案 / Update hosts file from URL**
+   - 從 `https://a.dove.isdumb.one/list.txt` 下載 hosts 內容並更新系統檔案，移除重複項目。  
+   - Downloads hosts content from `https://a.dove.isdumb.one/list.txt` and updates the system file, removing duplicates.
+
+2. **清理 Adobe 服務 / Clean Adobe Services**
+   - 停用並刪除 `AGSService` 和 `AAMUpdater` 服務。  
+   - Disables and deletes `AGSService` and `AAMUpdater` services.
+
+3. **移除 Adobe 相關資料夾 / Remove Adobe Related Folders**
+   - 刪除 `C:\Program Files (x86)\Common Files\Adobe\AdobeGCClient` 和 `C:\Program Files (x86)\Common Files\Adobe\OOBE\PDApp\UWA`。  
+   - Deletes `C:\Program Files (x86)\Common Files\Adobe\AdobeGCClient` and `C:\Program Files (x86)\Common Files\Adobe\OOBE\PDApp\UWA`.
+
+4. **清除 DNS 快取 / Clear DNS Cache**
+   - 執行 `ipconfig /flushdns` 確保 hosts 變更立即生效。  
+   - Runs `ipconfig /flushdns` to ensure hosts changes take effect immediately.
+
+5. **檢查並刪除 Adobe 排程任務 / Check and Delete Adobe Scheduled Tasks**
+   - 檢查並移除以下 Adobe 相關排程任務：`Adobe Acrobat Update Task`、`Adobe-Genuine-Software-Integrity-Scheduler`、`AdobeGCInvoker-1` 和 `Adobe Creative Cloud`。  
+   - Checks and removes the following Adobe-related scheduled tasks: `Adobe Acrobat Update Task`, `Adobe-Genuine-Software-Integrity-Scheduler`, `AdobeGCInvoker-1`, and `Adobe Creative Cloud`.
+
+6. **修改註冊表以禁用 AGS / Modify Registry to Disable AGS**
+   - 在 `HKLM:\SYSTEM\CurrentControlSet\Services\AGSService` 中將 `Start` 值設為 `4`，禁用 AGS 服務啟動。  
+   - Sets the `Start` value to `4` in `HKLM:\SYSTEM\CurrentControlSet\Services\AGSService` to disable AGS service startup.
+
+7. **結束並移除 AdobeGCInvoker 進程 / Terminate and Remove AdobeGCInvoker Process**
+   - 結束 `AGCInvokerUtility` 進程並移除相關排程任務。  
+   - Terminates the `AGCInvokerUtility` process and removes its related scheduled task.
+
+8. **禁用 Adobe Creative Cloud 背景進程 / Disable Adobe Creative Cloud Background Processes**
+   - 結束 `Creative Cloud`、`CCXProcess` 和 `CCLibrary` 進程，並移除相關排程任務。  
+   - Terminates `Creative Cloud`, `CCXProcess`, and `CCLibrary` processes, and removes their related scheduled task.
+
+9. **更新模式選擇 / Update Mode Selection**
+   - 使用者可選擇單次更新或設定每周一上午 9:00 自動更新（透過 Windows 工作排程器）。  
+   - Users can choose a one-time update or schedule a weekly update every Monday at 9:00 AM (via Windows Task Scheduler).
+
+---
+
+## 使用方法 / Usage
+
+### 前置條件 / Prerequisites
+- **作業系統 / Operating System**: Windows 10 或更高版本 / Windows 10 or higher  
+- **權限 / Permissions**: 必須以管理員身份運行 / Must run as administrator  
+- **PowerShell 版本 / PowerShell Version**: 建議 5.1 或更高 / Recommended 5.1 or higher  
+
+### 詳細步驟 / Detailed Steps
+1. **下載並解壓縮 / Download and Extract**  
+   - 從上方提供的連結下載 ZIP 檔案並解壓縮。  
+   - Download the ZIP file from the link above and extract it.
+
+2. **執行腳本 / Run the Script**  
+   - 雙擊 `Update-Hosts-adobe.bat`，腳本將自動以管理員權限啟動。  
+   - Double-click `Update-Hosts-adobe.bat`, and the script will start with administrator privileges.
+
+3. **選擇模式 / Select Mode**  
+   - 輸入 `1` 進行單次更新，或輸入 `2` 設定每周自動更新。  
+   - Enter `1` for a one-time update, or `2` to schedule a weekly update.
+
+4. **查看結果 / View Results**  
+   - 腳本將顯示每一步的執行狀態（成功、失敗或未找到）。  
+   - The script will display the status of each step (success, failure, or not found).
+
+---
+
+## 注意事項 / Notes
+
+- **合法性 / Legality**: 此腳本僅供學習和測試用途，修改 Adobe 驗證機制可能違反其使用條款，請自行承擔風險。  
+  - This script is for educational and testing purposes only. Modifying Adobe validation mechanisms may violate its terms of use; use at your own risk.  
+- **備份 / Backup**: 腳本會自動備份原始 hosts 檔案至 `hosts.bak`，但建議手動備份重要資料。  
+  - The script automatically backs up the original hosts file to `hosts.bak`, but manual backup of important data is recommended.  
+- **錯誤排查 / Troubleshooting**: 若腳本閃退，請檢查檔案編碼（建議 UTF-8 with BOM）或以命令列運行查看錯誤訊息：  
+  - If the script crashes, check the file encoding (recommended UTF-8 with BOM) or run it from the command line to view error messages:  
+    ```
+    powershell.exe -File "C:\path\to\Update-Hosts-adobe.ps1"
+    ```  
+- **排程管理 / Schedule Management**: 自動更新任務名為 `WeeklyHostsUpdate`，可在「工作排程器 (Task Scheduler)」中查看或修改。  
+  - The scheduled task is named `WeeklyHostsUpdate` and can be viewed or modified in Task Scheduler.
+
+---
+
+## 貢獻 / Contributing
+
+歡迎提交問題或拉取請求以改進此腳本！  
+Feel free to submit issues or pull requests to improve this script!
