@@ -7,7 +7,7 @@
 ## 下載連結 / Download Link
 
 下載最新版本 / Download the latest version:\
-https://github.com/blues32767/Windows-Adobe-Hosts-Update-and-Service-Removal-Tool/releases/download/v3.20250420/Update-Hosts-adobe-hostsfromweb.zip
+https://github.com/blues32767/Windows-Adobe-Hosts-Update-and-Service-Removal-Tool/releases/download/v2.20250420/Update-Hosts-adobe-hostsfromweb.zip
 
 ## 啟動方式 / How to Run
 
