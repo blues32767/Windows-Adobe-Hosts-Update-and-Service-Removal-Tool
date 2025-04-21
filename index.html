@@ -254,6 +254,62 @@
       margin-bottom: 10px;
     }
     
+    .language-switch {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      gap: 10px;
+    }
+    
+    .language-btn {
+      padding: 5px 10px;
+      background-color: var(--google-light-grey);
+      border: 1px solid var(--google-grey);
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: 'Google Sans', sans-serif;
+      font-size: 14px;
+      transition: all 0.2s;
+    }
+    
+    .language-btn.active {
+      background-color: var(--google-blue);
+      color: white;
+      border-color: var(--google-blue);
+    }
+    
+    .zh-content, .en-content {
+      display: none;
+    }
+    
+    .bilingual-text .zh-content {
+      display: block;
+    }
+    
+    .bilingual-text .en-content {
+      display: block;
+      margin-top: 5px;
+      color: var(--google-grey);
+    }
+    
+    .en-only .zh-content {
+      display: none;
+    }
+    
+    .en-only .en-content {
+      display: block;
+      color: inherit;
+    }
+    
+    .zh-only .en-content {
+      display: none;
+    }
+    
+    .zh-only .zh-content {
+      display: block;
+    }
+    
     @media (max-width: 768px) {
       .features-grid {
         grid-template-columns: 1fr;
@@ -274,77 +330,175 @@
       .step-number {
         margin-bottom: 10px;
       }
+      
+      .language-switch {
+        position: relative;
+        top: 0;
+        right: 0;
+        justify-content: center;
+        margin-bottom: 20px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="container">
+  <div class="container bilingual-text" id="main-container">
+    <div class="language-switch">
+      <button class="language-btn active" data-lang="bilingual">中/EN</button>
+      <button class="language-btn" data-lang="zh">中文</button>
+      <button class="language-btn" data-lang="en">English</button>
+    </div>
+    
     <header>
-      <h1>Windows Adobe Hosts Update and Service Removal Tool</h1>
-      <div class="subtitle">更新 Windows hosts 檔案並清理 Adobe 相關服務的工具</div>
-      <div class="author">作者/Author: blues32767 | <a href="https://github.com/blues32767" target="_blank">GitHub</a></div>
+      <h1>
+        <span class="zh-content">Windows Adobe Hosts 更新與服務移除工具</span>
+        <span class="en-content">Windows Adobe Hosts Update and Service Removal Tool</span>
+      </h1>
+      <div class="subtitle">
+        <span class="zh-content">更新 Windows hosts 檔案並清理 Adobe 相關服務的工具</span>
+        <span class="en-content">A tool to update Windows hosts file and clean Adobe-related services</span>
+      </div>
+      <div class="author">
+        <span class="zh-content">作者</span><span class="en-content">Author</span>: blues32767 | 
+        <a href="https://github.com/blues32767" target="_blank">GitHub</a>
+      </div>
     </header>
     
     <section class="download-section">
-      <h2>下載連結 / Download Link</h2>
-      <p>下載最新版本 / Download the latest version:</p>
-      <a href="https://github.com/blues32767/Windows-Adobe-Hosts-Update-and-Service-Removal-Tool/releases/download/v2.20250420/Update-Hosts-adobe-hostsfromweb.zip" class="download-button">
-        下載 v2.20250420 / Download v2.20250420
+      <h2>
+        <span class="zh-content">下載連結</span>
+        <span class="en-content">Download Link</span>
+      </h2>
+      <p>
+        <span class="zh-content">下載最新版本:</span>
+        <span class="en-content">Download the latest version:</span>
+      </p>
+      <a href="https://github.com/blues32767/Windows-Adobe-Hosts-Update-and-Service-Removal-Tool/releases/download/v3.20250420/Update-Hosts-adobe-hostsfromweb.zip" class="download-button">
+        <span class="zh-content">下載 v3.20250420</span>
+        <span class="en-content">Download v3.20250420</span>
       </a>
     </section>
     
     <section class="section">
-      <h2>使用方法 / Usage</h2>
+      <h2>
+        <span class="zh-content">使用方法</span>
+        <span class="en-content">Usage</span>
+      </h2>
       
-      <h3>前置條件 / Prerequisites</h3>
+      <h3>
+        <span class="zh-content">前置條件</span>
+        <span class="en-content">Prerequisites</span>
+      </h3>
       <ul>
-        <li><strong>作業系統 / Operating System:</strong> Windows 10 或更高版本 / Windows 10 or higher</li>
-        <li><strong>權限 / Permissions:</strong> 必須以管理員身份運行 / Must run as administrator</li>
-        <li><strong>PowerShell 版本 / PowerShell Version:</strong> 建議 5.1 或更高 / Recommended 5.1 or higher</li>
+        <li>
+          <strong>
+            <span class="zh-content">作業系統:</span>
+            <span class="en-content">Operating System:</span>
+          </strong> 
+          <span class="zh-content">Windows 10 或更高版本</span>
+          <span class="en-content">Windows 10 or higher</span>
+        </li>
+        <li>
+          <strong>
+            <span class="zh-content">權限:</span>
+            <span class="en-content">Permissions:</span>
+          </strong> 
+          <span class="zh-content">必須以管理員身份運行</span>
+          <span class="en-content">Must run as administrator</span>
+        </li>
+        <li>
+          <strong>
+            <span class="zh-content">PowerShell 版本:</span>
+            <span class="en-content">PowerShell Version:</span>
+          </strong> 
+          <span class="zh-content">建議 5.1 或更高</span>
+          <span class="en-content">Recommended 5.1 or higher</span>
+        </li>
       </ul>
       
-      <h3>安裝與執行步驟 / Installation and Execution Steps</h3>
+      <h3>
+        <span class="zh-content">安裝與執行步驟</span>
+        <span class="en-content">Installation and Execution Steps</span>
+      </h3>
       
       <div class="step-container">
         <div class="step-number">1</div>
         <div class="step-content">
-          <div class="step-title">下載並解壓縮 / Download and Extract</div>
-          <p>從上方提供的連結下載 ZIP 檔案並解壓縮至任意目錄。<br>
-          Download the ZIP file from the link above and extract it to any directory.</p>
+          <div class="step-title">
+            <span class="zh-content">下載並解壓縮</span>
+            <span class="en-content">Download and Extract</span>
+          </div>
+          <p>
+            <span class="zh-content">從上方提供的連結下載 ZIP 檔案並解壓縮至任意目錄。</span>
+            <span class="en-content">Download the ZIP file from the link above and extract it to any directory.</span>
+          </p>
         </div>
       </div>
       
       <div class="step-container">
         <div class="step-number">2</div>
         <div class="step-content">
-          <div class="step-title">執行 BAT 檔案 / Run the BAT File</div>
-          <p>雙擊解壓縮後的 Update-Hosts-adobe.bat 檔案，系統將自動以管理員權限運行 Update-Hosts-adobe.ps1。<br>
-          Double-click the extracted Update-Hosts-adobe.bat file, and the system will automatically run Update-Hosts-adobe.ps1 with administrator privileges.</p>
+          <div class="step-title">
+            <span class="zh-content">執行 BAT 檔案</span>
+            <span class="en-content">Run the BAT File</span>
+          </div>
+          <p>
+            <span class="zh-content">雙擊解壓縮後的 Update-Hosts-adobe.bat 檔案，系統將自動以管理員權限運行 Update-Hosts-adobe.ps1。</span>
+            <span class="en-content">Double-click the extracted Update-Hosts-adobe.bat file, and the system will automatically run Update-Hosts-adobe.ps1 with administrator privileges.</span>
+          </p>
         </div>
       </div>
       
       <div class="step-container">
         <div class="step-number">3</div>
         <div class="step-content">
-          <div class="step-title">確認執行 / Confirm Execution</div>
-          <p>若出現 UAC（使用者帳戶控制）提示，請點擊「是 (Yes)」以授予管理員權限。<br>
-          If a UAC (User Account Control) prompt appears, click "Yes" to grant administrator privileges.</p>
+          <div class="step-title">
+            <span class="zh-content">確認執行</span>
+            <span class="en-content">Confirm Execution</span>
+          </div>
+          <p>
+            <span class="zh-content">若出現 UAC（使用者帳戶控制）提示，請點擊「是」以授予管理員權限。</span>
+            <span class="en-content">If a UAC (User Account Control) prompt appears, click "Yes" to grant administrator privileges.</span>
+          </p>
         </div>
       </div>
       
       <div class="step-container">
         <div class="step-number">4</div>
         <div class="step-content">
-          <div class="step-title">選擇模式 / Select Mode</div>
-          <p>腳本啟動後，您將看到以下選項：<br>
-          After the script starts, you will see the following options:</p>
+          <div class="step-title">
+            <span class="zh-content">選擇模式</span>
+            <span class="en-content">Select Mode</span>
+          </div>
+          <p>
+            <span class="zh-content">腳本啟動後，您將看到以下選項：</span>
+            <span class="en-content">After the script starts, you will see the following options:</span>
+          </p>
           <ul>
-            <li><strong>輸入 1:</strong> 進行單次更新（包括 hosts 更新、服務清理和防火牆封鎖）<br>
-            <strong>Enter 1:</strong> For a one-time update (including hosts update, service cleanup, and firewall blocking)</li>
-            <li><strong>輸入 2:</strong> 設定每周一上午 9:00 自動更新（透過 Windows 工作排程器）<br>
-            <strong>Enter 2:</strong> To schedule a weekly update every Monday at 9:00 AM (via Windows Task Scheduler)</li>
-            <li><strong>輸入 3:</strong> 僅刪除防火牆規則<br>
-            <strong>Enter 3:</strong> To delete firewall rules only</li>
+            <li>
+              <strong>
+                <span class="zh-content">輸入 1:</span>
+                <span class="en-content">Enter 1:</span>
+              </strong> 
+              <span class="zh-content">進行單次更新（包括 hosts 更新、服務清理和防火牆封鎖）</span>
+              <span class="en-content">For a one-time update (including hosts update, service cleanup, and firewall blocking)</span>
+            </li>
+            <li>
+              <strong>
+                <span class="zh-content">輸入 2:</span>
+                <span class="en-content">Enter 2:</span>
+              </strong> 
+              <span class="zh-content">設定每周一上午 9:00 自動更新（透過 Windows 工作排程器）</span>
+              <span class="en-content">To schedule a weekly update every Monday at 9:00 AM (via Windows Task Scheduler)</span>
+            </li>
+            <li>
+              <strong>
+                <span class="zh-content">輸入 3:</span>
+                <span class="en-content">Enter 3:</span>
+              </strong> 
+              <span class="zh-content">僅刪除防火牆規則</span>
+              <span class="en-content">To delete firewall rules only</span>
+            </li>
           </ul>
         </div>
       </div>
@@ -352,136 +506,188 @@
       <div class="step-container">
         <div class="step-number">5</div>
         <div class="step-content">
-          <div class="step-title">查看結果 / View Results</div>
-          <p>腳本將顯示每一步的執行狀態（成功、失敗或未找到）。完成後，您可以查看結果並確認更改是否生效。<br>
-          The script will display the status of each step (success, failure, or not found). After completion, you can check the results and confirm if the changes have taken effect.</p>
+          <div class="step-title">
+            <span class="zh-content">查看結果</span>
+            <span class="en-content">View Results</span>
+          </div>
+          <p>
+            <span class="zh-content">腳本將顯示每一步的執行狀態（成功、失敗或未找到）。完成後，您可以查看結果並確認更改是否生效。</span>
+            <span class="en-content">The script will display the status of each step (success, failure, or not found). After completion, you can check the results and confirm if the changes have taken effect.</span>
+          </p>
         </div>
       </div>
     </section>
     
     <section class="section">
-      <h2>簡介 / Introduction</h2>
-      <div class="bilingual">
-        <p>此 PowerShell 腳本旨在更新 Windows 的 hosts 檔案並清理 Adobe 相關的驗證服務與進程，以防止 Adobe Genuine Software Integrity Service (AGS) 等驗證機制干擾使用。它提供單次執行或每周自動更新的選項，並包含多項進階清理功能。<br>
-        This PowerShell script is designed to update the Windows hosts file and remove Adobe-related validation services and processes, preventing interference from mechanisms like Adobe Genuine Software Integrity Service (AGS). It offers options for one-time execution or weekly scheduled updates, with advanced cleanup features.</p>
-      </div>
+      <h2>
+        <span class="zh-content">簡介</span>
+        <span class="en-content">Introduction</span>
+      </h2>
+      <p>
+        <span class="zh-content">此 PowerShell 腳本旨在更新 Windows 的 hosts 檔案並清理 Adobe 相關的驗證服務與進程，以防止 Adobe Genuine Software Integrity Service (AGS) 等驗證機制干擾使用。它提供單次執行或每周自動更新的選項，並包含多項進階清理功能。</span>
+        <span class="en-content">This PowerShell script is designed to update the Windows hosts file and remove Adobe-related validation services and processes, preventing interference from mechanisms like Adobe Genuine Software Integrity Service (AGS). It offers options for one-time execution or weekly scheduled updates, with advanced cleanup features.</span>
+      </p>
     </section>
     
     <section class="section">
-      <h2>功能 / Features</h2>
+      <h2>
+        <span class="zh-content">功能</span>
+        <span class="en-content">Features</span>
+      </h2>
       <div class="features-grid">
         <div class="feature-card">
-          <div class="feature-title">從網址更新 hosts 檔案 / Update hosts file from URL</div>
-          <p>從 <a href="https://a.dove.isdumb.one/list.txt" target="_blank">https://a.dove.isdumb.one/list.txt</a> 下載 hosts 內容並更新系統檔案，移除重複項目。<br>
-          Downloads hosts content from <a href="https://a.dove.isdumb.one/list.txt" target="_blank">https://a.dove.isdumb.one/list.txt</a> and updates the system file, removing duplicates.</p>
-          <p>Update hosts source: <a href="https://github.com/ignaciocastro/a-dove-is-dumb" target="_blank">https://github.com/ignaciocastro/a-dove-is-dumb</a></p>
+          <div class="feature-title">
+            <span class="zh-content">從網址更新 hosts 檔案</span>
+            <span class="en-content">Update hosts file from URL</span>
+          </div>
+          <p>
+            <span class="zh-content">從 <a href="https://a.dove.isdumb.one/list.txt" target="_blank">https://a.dove.isdumb.one/list.txt</a> 下載 hosts 內容並更新系統檔案，移除重複項目。</span>
+            <span class="en-content">Downloads hosts content from <a href="https://a.dove.isdumb.one/list.txt" target="_blank">https://a.dove.isdumb.one/list.txt</a> and updates the system file, removing duplicates.</span>
+          </p>
+          <p>
+            <span class="zh-content">更新來源:</span>
+            <span class="en-content">Update hosts source:</span>
+            <a href="https://github.com/ignaciocastro/a-dove-is-dumb" target="_blank">https://github.com/ignaciocastro/a-dove-is-dumb</a>
+          </p>
         </div>
         
         <div class="feature-card">
-          <div class="feature-title">清理 Adobe 服務 / Clean Adobe Services</div>
-          <p>停用並刪除 AGSService 和 AAMUpdater 服務。<br>
-          Disables and deletes AGSService and AAMUpdater services.</p>
+          <div class="feature-title">
+            <span class="zh-content">清理 Adobe 服務</span>
+            <span class="en-content">Clean Adobe Services</span>
+          </div>
+          <p>
+            <span class="zh-content">停用並刪除 AGSService 和 AAMUpdater 服務。</span>
+            <span class="en-content">Disables and deletes AGSService and AAMUpdater services.</span>
+          </p>
         </div>
         
         <div class="feature-card">
-          <div class="feature-title">移除 Adobe 相關資料夾 / Remove Adobe Related Folders</div>
-          <p>刪除 C:\Program Files (x86)\Common Files\Adobe\AdobeGCClient 和 C:\Program Files (x86)\Common Files\Adobe\OOBE\PDApp\UWA。<br>
-          Deletes C:\Program Files (x86)\Common Files\Adobe\AdobeGCClient and C:\Program Files (x86)\Common Files\Adobe\OOBE\PDApp\UWA.</p>
+          <div class="feature-title">
+            <span class="zh-content">移除 Adobe 相關資料夾</span>
+            <span class="en-content">Remove Adobe Related Folders</span>
+          </div>
+          <p>
+            <span class="zh-content">刪除 C:\Program Files (x86)\Common Files\Adobe\AdobeGCClient 和 C:\Program Files (x86)\Common Files\Adobe\OOBE\PDApp\UWA。</span>
+            <span class="en-content">Deletes C:\Program Files (x86)\Common Files\Adobe\AdobeGCClient and C:\Program Files (x86)\Common Files\Adobe\OOBE\PDApp\UWA.</span>
+          </p>
         </div>
         
         <div class="feature-card">
-          <div class="feature-title">清除 DNS 快取 / Clear DNS Cache</div>
-          <p>執行 ipconfig /flushdns 確保 hosts 變更立即生效。<br>
-          Runs ipconfig /flushdns to ensure hosts changes take effect immediately.</p>
+          <div class="feature-title">
+            <span class="zh-content">清除 DNS 快取</span>
+            <span class="en-content">Clear DNS Cache</span>
+          </div>
+          <p>
+            <span class="zh-content">執行 ipconfig /flushdns 確保 hosts 變更立即生效。</span>
+            <span class="en-content">Runs ipconfig /flushdns to ensure hosts changes take effect immediately.</span>
+          </p>
         </div>
         
         <div class="feature-card">
-          <div class="feature-title">檢查並刪除 Adobe 排程任務 / Check and Delete Adobe Scheduled Tasks</div>
-          <p>檢查並移除以下 Adobe 相關排程任務：Adobe Acrobat Update Task、Adobe-Genuine-Software-Integrity-Scheduler、AdobeGCInvoker-1 和 Adobe Creative Cloud。<br>
-          Checks and removes the following Adobe-related scheduled tasks: Adobe Acrobat Update Task, Adobe-Genuine-Software-Integrity-Scheduler, AdobeGCInvoker-1, and Adobe Creative Cloud.</p>
+          <div class="feature-title">
+            <span class="zh-content">檢查並刪除 Adobe 排程任務</span>
+            <span class="en-content">Check and Delete Adobe Scheduled Tasks</span>
+          </div>
+          <p>
+            <span class="zh-content">檢查並移除以下 Adobe 相關排程任務：Adobe Acrobat Update Task、Adobe-Genuine-Software-Integrity-Scheduler、AdobeGCInvoker-1 和 Adobe Creative Cloud。</span>
+            <span class="en-content">Checks and removes the following Adobe-related scheduled tasks: Adobe Acrobat Update Task, Adobe-Genuine-Software-Integrity-Scheduler, AdobeGCInvoker-1, and Adobe Creative Cloud.</span>
+          </p>
         </div>
         
         <div class="feature-card">
-          <div class="feature-title">修改註冊表以禁用 AGS / Modify Registry to Disable AGS</div>
-          <p>在 HKLM:\SYSTEM\CurrentControlSet\Services\AGSService 中將 Start 值設為 4，禁用 AGS 服務啟動。<br>
-          Sets the Start value to 4 in HKLM:\SYSTEM\CurrentControlSet\Services\AGSService to disable AGS service startup.</p>
+          <div class="feature-title">
+            <span class="zh-content">修改註冊表以禁用 AGS</span>
+            <span class="en-content">Modify Registry to Disable AGS</span>
+          </div>
+          <p>
+            <span class="zh-content">在 HKLM:\SYSTEM\CurrentControlSet\Services\AGSService 中將 Start 值設為 4，禁用 AGS 服務啟動。</span>
+            <span class="en-content">Sets the Start value to 4 in HKLM:\SYSTEM\CurrentControlSet\Services\AGSService to disable AGS service startup.</span>
+          </p>
         </div>
         
         <div class="feature-card">
-          <div class="feature-title">結束並移除 AdobeGCInvoker 進程 / Terminate and Remove AdobeGCInvoker Process</div>
-          <p>結束 AGCInvokerUtility 進程並移除相關排程任務。<br>
-          Terminates the AGCInvokerUtility process and removes its related scheduled task.</p>
+          <div class="feature-title">
+            <span class="zh-content">結束並移除 AdobeGCInvoker 進程</span>
+            <span class="en-content">Terminate and Remove AdobeGCInvoker Process</span>
+          </div>
+          <p>
+            <span class="zh-content">結束 AGCInvokerUtility 進程並移除相關排程任務。</span>
+            <span class="en-content">Terminates the AGCInvokerUtility process and removes its related scheduled task.</span>
+          </p>
         </div>
         
         <div class="feature-card">
-          <div class="feature-title">禁用 Adobe Creative Cloud 背景進程 / Disable Adobe Creative Cloud Background Processes</div>
-          <p>結束 Creative Cloud、CCXProcess 和 CCLibrary 進程，並移除相關排程任務。<br>
-          Terminates Creative Cloud, CCXProcess, and CCLibrary processes, and removes their related scheduled task.</p>
+          <div class="feature-title">
+            <span class="zh-content">禁用 Adobe Creative Cloud 背景進程</span>
+            <span class="en-content">Disable Adobe Creative Cloud Background Processes</span>
+          </div>
+          <p>
+            <span class="zh-content">結束 Creative Cloud、CCXProcess 和 CCLibrary 進程，並移除相關排程任務。</span>
+            <span class="en-content">Terminates Creative Cloud, CCXProcess, and CCLibrary processes, and removes their related scheduled task.</span>
+          </p>
         </div>
         
         <div class="feature-card">
-          <div class="feature-title">更新模式選擇 / Update Mode Selection</div>
-          <p>使用者可選擇單次更新或設定每周一上午 9:00 自動更新（透過 Windows 工作排程器）。<br>
-          Users can choose a one-time update or schedule a weekly update every Monday at 9:00 AM (via Windows Task Scheduler).</p>
+          <div class="feature-title">
+            <span class="zh-content">更新模式選擇</span>
+            <span class="en-content">Update Mode Selection</span>
+          </div>
+          <p>
+            <span class="zh-content">使用者可選擇單次更新或設定每周一上午 9:00 自動更新（透過 Windows 工作排程器）。</span>
+            <span class="en-content">Users can choose a one-time update or schedule a weekly update every Monday at 9:00 AM (via Windows Task Scheduler).</span>
+          </p>
         </div>
         
         <div class="feature-card">
-          <div class="feature-title">封鎖 Adobe 相關可執行文件的防火牆規則 / Block Adobe-related Executables in Firewall</div>
-          <p>為 Adobe 相關目錄（例如 C:\Program Files\Adobe 和 C:\Program Files (x86)\Adobe）中的可執行文件創建入站和出站防火牆規則，阻止其網路訪問。<br>
-          Creates inbound and outbound firewall rules for executables in Adobe-related directories (e.g., C:\Program Files\Adobe and C:\Program Files (x86)\Adobe), blocking their network access.</p>
-          <p>支援刪除現有防火牆規則的選項。<br>
-          Supports an option to delete existing firewall rules.</p>
-          <p>Firewall functionality adapted from: <a href="https://github.com/ph33nx" target="_blank">https://github.com/ph33nx</a></p>
+          <div class="feature-title">
+            <span class="zh-content">封鎖 Adobe 相關可執行文件的防火牆規則</span>
+            <span class="en-content">Block Adobe-related Executables in Firewall</span>
+          </div>
+          <p>
+            <span class="zh-content">為 Adobe 相關目錄（例如 C:\Program Files\Adobe 和 C:\Program Files (x86)\Adobe）中的可執行文件創建入站和出站防火牆規則，阻止其網路訪問。</span>
+            <span class="en-content">Creates inbound and outbound firewall rules for executables in Adobe-related directories (e.g., C:\Program Files\Adobe and C:\Program Files (x86)\Adobe), blocking their network access.</span>
+          </p>
+          <p>
+            <span class="zh-content">支援刪除現有防火牆規則的選項。</span>
+            <span class="en-content">Supports an option to delete existing firewall rules.</span>
+          </p>
+          <p>
+            <span class="zh-content">防火牆功能改編自:</span>
+            <span class="en-content">Firewall functionality adapted from:</span>
+            <a href="https://github.com/ph33nx" target="_blank">https://github.com/ph33nx</a>
+          </p>
         </div>
       </div>
     </section>
     
     <section class="section">
-      <h2>注意事項 / Notes</h2>
+      <h2>
+        <span class="zh-content">注意事項</span>
+        <span class="en-content">Notes</span>
+      </h2>
       <ul>
         <li>
-          <strong>合法性 / Legality:</strong> 此腳本僅供學習和測試用途，修改 Adobe 驗證機制可能違反其使用條款，請自行承擔風險。<br>
-          This script is for educational and testing purposes only. Modifying Adobe validation mechanisms may violate its terms of use; use at your own risk.
+          <strong>
+            <span class="zh-content">合法性:</span>
+            <span class="en-content">Legality:</span>
+          </strong> 
+          <span class="zh-content">此腳本僅供學習和測試用途，修改 Adobe 驗證機制可能違反其使用條款，請自行承擔風險。</span>
+          <span class="en-content">This script is for educational and testing purposes only. Modifying Adobe validation mechanisms may violate its terms of use; use at your own risk.</span>
         </li>
         <li>
-          <strong>備份 / Backup:</strong> 腳本會自動備份原始 hosts 檔案至 hosts.bak，但建議手動備份重要資料。<br>
-          The script automatically backs up the original hosts file to hosts.bak, but manual backup of important data is recommended.
+          <strong>
+            <span class="zh-content">備份:</span>
+            <span class="en-content">Backup:</span>
+          </strong> 
+          <span class="zh-content">腳本會自動備份原始 hosts 檔案至 hosts.bak，但建議手動備份重要資料。</span>
+          <span class="en-content">The script automatically backs up the original hosts file to hosts.bak, but manual backup of important data is recommended.</span>
         </li>
         <li>
-          <strong>錯誤排查 / Troubleshooting:</strong> 若腳本閃退，請檢查檔案編碼（建議 UTF-8 with BOM）或以命令列運行查看錯誤訊息：<br>
-          If the script crashes, check the file encoding (recommended UTF-8 with BOM) or run it from the command line to view error messages:
-          <div class="code-block">powershell.exe -File "C:\path\to\Update-Hosts-adobe.ps1"</div>
-        </li>
-        <li>
-          <strong>排程管理 / Schedule Management:</strong> 自動更新任務名為 WeeklyHostsUpdate，可在「工作排程器 (Task Scheduler)」中查看或修改。<br>
-          The scheduled task is named WeeklyHostsUpdate and can be viewed or modified in Task Scheduler.
-        </li>
-      </ul>
-    </section>
-    
-    <section class="section">
-      <h2>貢獻 / Contributing</h2>
-      <p>歡迎提交問題或拉取請求以改進此腳本！<br>
-      Feel free to submit issues or pull requests to improve this script!</p>
-    </section>
-    
-    <section class="section">
-      <h2>更新紀錄 / Change Log</h2>
-      <div class="changelog">
-        <p class="changelog-date">2025-04-20:</p>
-        <ul>
-          <li><strong>新增功能:</strong> 添加封鎖 Adobe 相關可執行文件的防火牆功能，阻止其入站和出站網路訪問，支援刪除現有規則的選項（改進自 <a href="https://github.com/ph33nx" target="_blank">https://github.com/ph33nx</a>）。<br>
-          <strong>New Feature:</strong> Added firewall blocking for Adobe-related executables, preventing inbound and outbound network access, with an option to delete existing rules (adapted from <a href="https://github.com/ph33nx" target="_blank">https://github.com/ph33nx</a>).</li>
-          <li><strong>版本 / Version:</strong> v3.20250420</li>
-          <li><strong>修正:</strong> 修復防火牆功能中的語法錯誤，確保腳本穩定執行。<br>
-          <strong>Fix:</strong> Fixed syntax error in firewall functionality to ensure stable execution.</li>
-        </ul>
-      </div>
-    </section>
-    
-    <footer>
-      <p>© 2025 blues32767 | <a href="https://github.com/blues32767" target="_blank">GitHub</a></p>
-    </footer>
-  </div>
-</body>
-</html>
+          <strong>
+            <span class="zh-content">錯誤排查:</span>
+            <span class="en-content">Troubleshooting:</span>
+          </strong> 
+          <span class="zh-content">若腳本閃退，請檢查檔案編碼（建議 UTF-8 with BOM）或以命令列運行查看錯誤訊息：</span>
+          <span class="en-content">If the script crashes, check the file encoding (recommended UTF-8 with BOM) or run it from the command line to view error messages:</span>
+          <div class="code-block">powershell.exe -File "C:\path\to\Update-Hosts
