@@ -360,15 +360,15 @@
 <body>
   <div class="container bilingual-text" id="main-container">
     <div class="language-switch">
-      <button class="language-btn" id="bilingual-btn">中/EN</button>
+      <button class="language-btn active" id="bilingual-btn">中/EN</button>
       <button class="language-btn" id="zh-btn">中文</button>
       <button class="language-btn" id="en-btn">English</button>
     </div>
     
     <div class="language-link">
-      <a href="index.html">中文/英文</a> | 
-      <a href="index.html?lang=zh">中文</a> | 
-      <a href="index.html?lang=en">English</a>
+      <a href="?lang=bilingual">中文/英文</a> | 
+      <a href="?lang=zh">中文</a> | 
+      <a href="?lang=en">English</a>
     </div>
     
     <header>
@@ -702,4 +702,104 @@
             <span class="zh-content">備份:</span>
             <span class="en-content">Backup:</span>
           </strong> 
-          <span class="zh-content">腳本會自動備份原始 hosts 檔案至 hosts.bak，但建議手動備份重要資
+          <span class="zh-content">腳本會自動備份原始 hosts 檔案至 hosts.bak，但建議手動備份重要資料。</span>
+          <span class="en-content">The script automatically backs up the original hosts file to hosts.bak, but manual backup of important data is recommended.</span>
+        </li>
+        <li>
+          <strong>
+            <span class="zh-content">錯誤排查:</span>
+            <span class="en-content">Troubleshooting:</span>
+          </strong> 
+          <span class="zh-content">若腳本閃退，請檢查檔案編碼（建議 UTF-8 with BOM）或以命令列運行查看錯誤訊息：</span>
+          <span class="en-content">If the script crashes, check the file encoding (recommended UTF-8 with BOM) or run it from the command line to view error messages:</span>
+          <div class="code-block">
+            powershell.exe -File "C:\path\to\Update-Hosts-adobe.ps1"
+          </div>
+        </li>
+        <li>
+          <strong>
+            <span class="zh-content">排程管理:</span>
+            <span class="en-content">Schedule Management:</span>
+          </strong> 
+          <span class="zh-content">自動更新任務名為 WeeklyHostsUpdate，可在「工作排程器 (Task Scheduler)」中查看或修改。</span>
+          <span class="en-content">The scheduled task is named WeeklyHostsUpdate and can be viewed or modified in Task Scheduler.</span>
+        </li>
+      </ul>
+    </section>
+    
+    <section class="section">
+      <h2>
+        <span class="zh-content">更新紀錄</span>
+        <span class="en-content">Change Log</span>
+      </h2>
+      <div class="changelog">
+        <div class="changelog-date">2025-04-20</div>
+        <ul>
+          <li>
+            <span class="zh-content">新增功能：添加封鎖 Adobe 相關可執行文件的防火牆功能，阻止其入站和出站網路訪問，支援刪除現有規則的選項（改進自 <a href="https://github.com/ph33nx" target="_blank">ph33nx</a>）。</span>
+            <span class="en-content">New Feature: Added firewall blocking for Adobe-related executables, preventing inbound and outbound network access, with an option to delete existing rules (adapted from <a href="https://github.com/ph33nx" target="_blank">ph33nx</a>).</span>
+          </li>
+          <li>
+            <span class="zh-content">修正：修復防火牆功能中的語法錯誤，確保腳本穩定執行。</span>
+            <span class="en-content">Fix: Fixed syntax error in firewall functionality to ensure stable execution.</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+    
+    <footer>
+      <span class="zh-content">© 2025 blues32767. 版權所有。</span>
+      <span class="en-content">© 2025 blues32767. All rights reserved.</span>
+    </footer>
+  </div>
+
+  <script>
+    // 取得主容器
+    const container = document.getElementById('main-container');
+    const bilingualBtn = document.getElementById('bilingual-btn');
+    const zhBtn = document.getElementById('zh-btn');
+    const enBtn = document.getElementById('en-btn');
+
+    // 切換語言的函數
+    function switchLanguage(lang) {
+      // 移除所有語言相關類別
+      container.classList.remove('bilingual-text', 'zh-only', 'en-only');
+      // 移除所有按鈕的 active 類別
+      bilingualBtn.classList.remove('active');
+      zhBtn.classList.remove('active');
+      enBtn.classList.remove('active');
+
+      // 根據語言參數添加相應類別
+      if (lang === 'bilingual') {
+        container.classList.add('bilingual-text');
+        bilingualBtn.classList.add('active');
+      } else if (lang === 'zh') {
+        container.classList.add('zh-only');
+        zhBtn.classList.add('active');
+      } else if (lang === 'en') {
+        container.classList.add('en-only');
+        enBtn.classList.add('active');
+      }
+
+      // 更新 URL 查詢參數而不重新載入頁面
+      const newUrl = lang === 'bilingual' ? window.location.pathname : `${window.location.pathname}?lang=${lang}`;
+      history.pushState({}, '', newUrl);
+    }
+
+    // 綁定按鈕點擊事件
+    bilingualBtn.addEventListener('click', () => switchLanguage('bilingual'));
+    zhBtn.addEventListener('click', () => switchLanguage('zh'));
+    enBtn.addEventListener('click', () => switchLanguage('en'));
+
+    // 解析 URL 查詢參數並初始化語言
+    function initLanguage() {
+      const params = new URLSearchParams(window.location.search);
+      const lang = params.get('lang');
+      switchLanguage(lang === 'zh' ? 'zh' : lang === 'en' ? 'en' : 'bilingual');
+    }
+
+    // 頁面載入時初始化
+    window.addEventListener('load', initLanguage);
+  </script>
+</body>
+</html>
