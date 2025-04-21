@@ -1,43 +1,96 @@
-# æª¢æŸ¥ç•¶å‰åŸ·è¡Œç­–ç•¥
+# ÀË¬d·í«e°õ¦æµ¦²¤
 $currentPolicy = Get-ExecutionPolicy -Scope CurrentUser
-Write-Host "ç•¶å‰åŸ·è¡Œç­–ç•¥ç‚º: $currentPolicy (Current execution policy: $currentPolicy)" -ForegroundColor Yellow
+Write-Host "·í«e°õ¦æµ¦²¤¬°: $currentPolicy (Current execution policy: $currentPolicy)" -ForegroundColor Yellow
 
 if ($currentPolicy -eq "Restricted") {
-    Write-Host "éŒ¯èª¤ï¼šç•¶å‰åŸ·è¡Œç­–ç•¥ç‚º Restrictedï¼Œç„¡æ³•é‹è¡Œè…³æœ¬ã€‚ (Error: Current execution policy is Restricted, script cannot run.)" -ForegroundColor Red
-    Write-Host "éœ€è¦å°‡åŸ·è¡Œç­–ç•¥æ›´æ”¹ç‚º Unrestricted ä»¥ç¹¼çºŒã€‚ (Need to change execution policy to Unrestricted to proceed.)" -ForegroundColor Yellow
-    $response = Read-Host "æ˜¯å¦åŒæ„æ›´æ”¹åŸ·è¡Œç­–ç•¥ï¼Ÿ(è¼¸å…¥ 'Y' åŒæ„ï¼Œè¼¸å…¥å…¶ä»–å‰‡é€€å‡º) (Do you agree to change the policy? Enter 'Y' to agree, anything else to exit)"
+    Write-Host "¿ù»~¡G·í«e°õ¦æµ¦²¤¬° Restricted¡AµLªk¹B¦æ¸}¥»¡C (Error: Current execution policy is Restricted, script cannot run.)" -ForegroundColor Red
+    Write-Host "»İ­n±N°õ¦æµ¦²¤§ó§ï¬° Unrestricted ¥HÄ~Äò¡C (Need to change execution policy to Unrestricted to proceed.)" -ForegroundColor Yellow
+    $response = Read-Host "¬O§_¦P·N§ó§ï°õ¦æµ¦²¤¡H(¿é¤J 'Y' ¦P·N¡A¿é¤J¨ä¥L«h°h¥X) (Do you agree to change the policy? Enter 'Y' to agree, anything else to exit)"
     
     if ($response -eq 'Y' -or $response -eq 'y') {
         try {
             Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Unrestricted -Force
-            Write-Host "åŸ·è¡Œç­–ç•¥å·²æˆåŠŸæ›´æ”¹ç‚º Unrestricted (Execution policy successfully changed to Unrestricted)" -ForegroundColor Green
+            Write-Host "°õ¦æµ¦²¤¤w¦¨¥\§ó§ï¬° Unrestricted (Execution policy successfully changed to Unrestricted)" -ForegroundColor Green
         } catch {
-            Write-Host "æ›´æ”¹åŸ·è¡Œç­–ç•¥å¤±æ•—ï¼Œè«‹ä»¥ç®¡ç†å“¡èº«ä»½é‹è¡Œæ­¤è…³æœ¬: $($_) (Failed to change execution policy, please run as administrator: $($_))" -ForegroundColor Red
+            Write-Host "§ó§ï°õ¦æµ¦²¤¥¢±Ñ¡A½Ğ¥HºŞ²z­û¨­¥÷¹B¦æ¦¹¸}¥»: $($_) (Failed to change execution policy, please run as administrator: $($_))" -ForegroundColor Red
             exit
         }
     } else {
-        Write-Host "ä½¿ç”¨è€…ä¸åŒæ„æ›´æ”¹åŸ·è¡Œç­–ç•¥ï¼Œè…³æœ¬å°‡é€€å‡ºã€‚ (User did not agree to change policy, script will exit.)" -ForegroundColor Red
+        Write-Host "¨Ï¥ÎªÌ¤£¦P·N§ó§ï°õ¦æµ¦²¤¡A¸}¥»±N°h¥X¡C (User did not agree to change policy, script will exit.)" -ForegroundColor Red
         exit
     }
 }
 
-# æª¢æŸ¥æ˜¯å¦ä»¥ç®¡ç†å“¡æ¬Šé™é‹è¡Œ
+# ÀË¬d¬O§_¥HºŞ²z­ûÅv­­¹B¦æ
 if (-NOT ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
     Start-Process powershell.exe -ArgumentList "-File `"$PSCommandPath`"" -Verb RunAs
     exit
 }
 
-# å®šç¾©ä¸»è¦æ›´æ–°å‡½æ•¸
+# ©w¸q¨¾¤õÀğ«ÊÂê¨ç¼Æ
+function Block-AdobeFirewall {
+    param (
+        [switch]$Delete
+    )
+
+    if ($Delete) {
+        Write-Host "¥¿¦b§R°£²{¦³ªºAdobe¨¾¤õÀğ³W«h... (Deleting existing Adobe firewall rules...)" -ForegroundColor Yellow
+        try {
+            $rules = Get-NetFirewallRule | Where-Object { $_.DisplayName -like '*adobe-block' }
+            foreach ($rule in $rules) {
+                Remove-NetFirewallRule -DisplayName $rule.DisplayName -ErrorAction SilentlyContinue
+                Write-Host "¤w§R°£¨¾¤õÀğ³W«h: $($rule.DisplayName) (Firewall rule deleted: $($rule.DisplayName))" -ForegroundColor Green
+            }
+            Write-Host "¨¾¤õÀğ³W«h§R°£§¹¦¨ (Firewall rules deletion completed)" -ForegroundColor Green
+        } catch {
+            Write-Host "§R°£¨¾¤õÀğ³W«h®Éµo¥Í¿ù»~: $($_) (Error deleting firewall rules: $($_))" -ForegroundColor Red
+        }
+        return
+    }
+
+    $folders = @(
+        "C:\Program Files\Adobe",
+        "C:\Program Files\Common Files\Adobe",
+        "C:\Program Files\Maxon Cinema 4D R25",
+        "C:\Program Files\Red Giant",
+        "C:\Program Files (x86)\Adobe",
+        "C:\Program Files (x86)\Common Files\Adobe"
+    )
+
+    Write-Host "¥¿¦b«ÊÂêAdobe¬ÛÃö¥i°õ¦æ¤å¥óªº¨¾¤õÀğ³W«h... (Blocking Adobe-related executables in firewall...)" -ForegroundColor Yellow
+    foreach ($folder in $folders) {
+        if (Test-Path -Path $folder) {
+            $executables = Get-ChildItem -Path $folder -Recurse -Include *.exe -ErrorAction SilentlyContinue
+            foreach ($exe in $executables) {
+                $exeName = [System.IO.Path]::GetFileNameWithoutExtension($exe.Name)
+                $ruleName = "$exeName adobe-block"
+                Write-Host "¥¿¦b«ÊÂê: $exeName (Blocking: $exeName)" -ForegroundColor Yellow
+                try {
+                    # ³Ğ«Ø¥X¯¸³W«h
+                    New-NetFirewallRule -DisplayName $ruleName -Direction Outbound -Program $exe.FullName -Action Block -ErrorAction SilentlyContinue | Out-Null
+                    # ³Ğ«Ø¤J¯¸³W«h
+                    New-NetFirewallRule -DisplayName $ruleName -Direction Inbound -Program $exe.FullName -Action Block -ErrorAction SilentlyContinue | Out-Null
+                    Write-Host "¤w¦¨¥\«ÊÂê: $exeName (Successfully blocked: $exeName)" -ForegroundColor Green
+                } catch {
+                    Write-Host "«ÊÂê $exeName ®Éµo¥Í¿ù»~: $($_) (Error blocking ${exeName}: $($_))" -ForegroundColor Red
+                }
+            }
+        }
+    }
+    Write-Host "¨¾¤õÀğ«ÊÂê§¹¦¨ (Firewall blocking completed)" -ForegroundColor Green
+}
+
+# ©w¸q¥D­n§ó·s¨ç¼Æ
 function Update-HostsAndServices {
-    # è¨­ç½® hosts æª”æ¡ˆè·¯å¾‘
+    # ³]¸m hosts ÀÉ®×¸ô®|
     $hostsFilePath = "$env:SystemRoot\System32\drivers\etc\hosts"
     $backupFilePath = "$env:SystemRoot\System32\drivers\etc\hosts.bak"
     $url = "https://a.dove.isdumb.one/list.txt"
 
-    # æ›´æ–° hosts æª”æ¡ˆ
+    # §ó·s hosts ÀÉ®×
     if (Test-Path -Path $hostsFilePath) {
         Copy-Item -Path $hostsFilePath -Destination $backupFilePath -Force
-        Write-Host "å·²å‚™ä»½ hosts æª”æ¡ˆè‡³ $backupFilePath (Hosts file backed up to $backupFilePath)" -ForegroundColor Green
+        Write-Host "¤w³Æ¥÷ hosts ÀÉ®×¦Ü $backupFilePath (Hosts file backed up to $backupFilePath)" -ForegroundColor Green
 
         try {
             $webContent = Invoke-WebRequest -Uri $url -UseBasicParsing
@@ -76,196 +129,203 @@ function Update-HostsAndServices {
             
             $finalContent = $headerLines + $commentLines + $uniqueEntries.Keys
             $finalContent | Out-File -FilePath $hostsFilePath -Encoding ASCII
-            Write-Host "å·²å¾ $url æ›´æ–° hosts æª”æ¡ˆä¸¦ç§»é™¤é‡è¤‡é …ç›® (Hosts file updated from $url and duplicates removed)" -ForegroundColor Green
+            Write-Host "¤w±q $url §ó·s hosts ÀÉ®×¨Ã²¾°£­«½Æ¶µ¥Ø (Hosts file updated from $url and duplicates removed)" -ForegroundColor Green
             
             ipconfig /flushdns
-            Write-Host "å·²æ¸…é™¤ DNS å¿«å– (DNS cache cleared)" -ForegroundColor Green
+            Write-Host "¤w²M°£ DNS §Ö¨ú (DNS cache cleared)" -ForegroundColor Green
         } catch {
-            Write-Host "å¾ ${url} æ›´æ–° hosts æª”æ¡ˆå¤±æ•—: $($_) (Failed to update hosts file from ${url}: $($_))" -ForegroundColor Red
+            Write-Host "±q ${url} §ó·s hosts ÀÉ®×¥¢±Ñ: $($_) (Failed to update hosts file from ${url}: $($_))" -ForegroundColor Red
         }
     } else {
-        Write-Host "éŒ¯èª¤ï¼šæ‰¾ä¸åˆ° hosts æª”æ¡ˆ ($hostsFilePath) (Error: Hosts file not found ($hostsFilePath))" -ForegroundColor Red
+        Write-Host "¿ù»~¡G§ä¤£¨ì hosts ÀÉ®× ($hostsFilePath) (Error: Hosts file not found ($hostsFilePath))" -ForegroundColor Red
     }
 
-    # ç¦ç”¨å’Œåˆªé™¤ Adobe æœå‹™
-    Write-Host "æ­£åœ¨ç¦ç”¨ AGSService æœå‹™... (Disabling AGSService service...)" -ForegroundColor Yellow
+    # ¸T¥Î©M§R°£ Adobe ªA°È
+    Write-Host "¥¿¦b¸T¥Î AGSService ªA°È... (Disabling AGSService service...)" -ForegroundColor Yellow
     try {
         $service = Get-Service -Name "AGSService" -ErrorAction SilentlyContinue
         if ($service) {
             Stop-Service -Name "AGSService" -Force -ErrorAction SilentlyContinue
             Set-Service -Name "AGSService" -StartupType Disabled -ErrorAction SilentlyContinue
-            Write-Host "å·²æˆåŠŸç¦ç”¨ AGSService æœå‹™ (AGSService service successfully disabled)" -ForegroundColor Green
+            Write-Host "¤w¦¨¥\¸T¥Î AGSService ªA°È (AGSService service successfully disabled)" -ForegroundColor Green
         }
     } catch {
-        Write-Host "ç¦ç”¨ AGSService æœå‹™æ™‚ç™¼ç”ŸéŒ¯èª¤: $($_) (Error disabling AGSService service: $($_))" -ForegroundColor Red
+        Write-Host "¸T¥Î AGSService ªA°È®Éµo¥Í¿ù»~: $($_) (Error disabling AGSService service: $($_))" -ForegroundColor Red
     }
 
-    Write-Host "æ­£åœ¨åˆªé™¤ AGSService æœå‹™... (Deleting AGSService service...)" -ForegroundColor Yellow
+    Write-Host "¥¿¦b§R°£ AGSService ªA°È... (Deleting AGSService service...)" -ForegroundColor Yellow
     try {
         cmd /c "sc delete AGSService"
-        Write-Host "å·²åŸ·è¡Œåˆªé™¤ AGSService æœå‹™å‘½ä»¤ (AGSService service deletion command executed)" -ForegroundColor Green
+        Write-Host "¤w°õ¦æ§R°£ AGSService ªA°È©R¥O (AGSService service deletion command executed)" -ForegroundColor Green
     } catch {
-        Write-Host "åˆªé™¤ AGSService æœå‹™æ™‚ç™¼ç”ŸéŒ¯èª¤: $($_) (Error deleting AGSService service: $($_))" -ForegroundColor Red
+        Write-Host "§R°£ AGSService ªA°È®Éµo¥Í¿ù»~: $($_) (Error deleting AGSService service: $($_))" -ForegroundColor Red
     }
 
-    Write-Host "æ­£åœ¨åˆªé™¤ AAMUpdater æœå‹™... (Deleting AAMUpdater service...)" -ForegroundColor Yellow
+    Write-Host "¥¿¦b§R°£ AAMUpdater ªA°È... (Deleting AAMUpdater service...)" -ForegroundColor Yellow
     try {
         cmd /c "sc delete AAMUpdater"
-        Write-Host "å·²åŸ·è¡Œåˆªé™¤ AAMUpdater æœå‹™å‘½ä»¤ (AAMUpdater service deletion command executed)" -ForegroundColor Green
+        Write-Host "¤w°õ¦æ§R°£ AAMUpdater ªA°È©R¥O (AAMUpdater service deletion command executed)" -ForegroundColor Green
     } catch {
-        Write-Host "åˆªé™¤ AAMUpdater æœå‹™æ™‚ç™¼ç”ŸéŒ¯èª¤: $($_) (Error deleting AAMUpdater service: $($_))" -ForegroundColor Red
+        Write-Host "§R°£ AAMUpdater ªA°È®Éµo¥Í¿ù»~: $($_) (Error deleting AAMUpdater service: $($_))" -ForegroundColor Red
     }
 
-    # åˆªé™¤ Adobe ç›¸é—œè³‡æ–™å¤¾
+    # §R°£ Adobe ¬ÛÃö¸ê®Æ§¨
     $adobeGCClientPath = "C:\Program Files (x86)\Common Files\Adobe\AdobeGCClient"
     $uwaPath = "C:\Program Files (x86)\Common Files\Adobe\OOBE\PDApp\UWA"
 
     if (Test-Path -Path $adobeGCClientPath) {
         try {
             Remove-Item -Path $adobeGCClientPath -Recurse -Force -ErrorAction SilentlyContinue
-            Write-Host "å·²æˆåŠŸåˆªé™¤ AdobeGCClient è³‡æ–™å¤¾ (AdobeGCClient folder successfully deleted)" -ForegroundColor Green
+            Write-Host "¤w¦¨¥\§R°£ AdobeGCClient ¸ê®Æ§¨ (AdobeGCClient folder successfully deleted)" -ForegroundColor Green
         } catch {
-            Write-Host "åˆªé™¤ AdobeGCClient è³‡æ–™å¤¾æ™‚ç™¼ç”ŸéŒ¯èª¤: $($_) (Error deleting AdobeGCClient folder: $($_))" -ForegroundColor Red
+            Write-Host "§R°£ AdobeGCClient ¸ê®Æ§¨®Éµo¥Í¿ù»~: $($_) (Error deleting AdobeGCClient folder: $($_))" -ForegroundColor Red
         }
     }
 
     if (Test-Path -Path $uwaPath) {
         try {
             Remove-Item -Path $uwaPath -Recurse -Force -ErrorAction SilentlyContinue
-            Write-Host "å·²æˆåŠŸåˆªé™¤ UWA è³‡æ–™å¤¾ (UWA folder successfully deleted)" -ForegroundColor Green
+            Write-Host "¤w¦¨¥\§R°£ UWA ¸ê®Æ§¨ (UWA folder successfully deleted)" -ForegroundColor Green
         } catch {
-            Write-Host "åˆªé™¤ UWA è³‡æ–™å¤¾æ™‚ç™¼ç”ŸéŒ¯èª¤: $($_) (Error deleting UWA folder: $($_))" -ForegroundColor Red
+            Write-Host "§R°£ UWA ¸ê®Æ§¨®Éµo¥Í¿ù»~: $($_) (Error deleting UWA folder: $($_))" -ForegroundColor Red
         }
     }
 
-    # æª¢æŸ¥ä¸¦åˆªé™¤ Adobe ç›¸é—œæ’ç¨‹ä»»å‹™
+    # ÀË¬d¨Ã§R°£ Adobe ¬ÛÃö±Æµ{¥ô°È
     $adobeTasks = @("Adobe Acrobat Update Task", "Adobe-Genuine-Software-Integrity-Scheduler")
-    Write-Host "æ­£åœ¨æª¢æŸ¥ä¸¦åˆªé™¤ Adobe ç›¸é—œæ’ç¨‹ä»»å‹™... (Checking and deleting Adobe-related scheduled tasks...)" -ForegroundColor Yellow
+    Write-Host "¥¿¦bÀË¬d¨Ã§R°£ Adobe ¬ÛÃö±Æµ{¥ô°È... (Checking and deleting Adobe-related scheduled tasks...)" -ForegroundColor Yellow
     
     foreach ($task in $adobeTasks) {
         try {
             $taskExists = Get-ScheduledTask -TaskName $task -ErrorAction SilentlyContinue
             if ($taskExists) {
                 Unregister-ScheduledTask -TaskName $task -Confirm:$false -ErrorAction Stop
-                Write-Host "å·²æˆåŠŸåˆªé™¤æ’ç¨‹ä»»å‹™: $task (Scheduled task $task successfully deleted)" -ForegroundColor Green
+                Write-Host "¤w¦¨¥\§R°£±Æµ{¥ô°È: $task (Scheduled task $task successfully deleted)" -ForegroundColor Green
             } else {
-                Write-Host "æœªæ‰¾åˆ°æ’ç¨‹ä»»å‹™: $task (Scheduled task $task not found)" -ForegroundColor Yellow
+                Write-Host "¥¼§ä¨ì±Æµ{¥ô°È: $task (Scheduled task $task not found)" -ForegroundColor Yellow
             }
         } catch {
-            Write-Host "åˆªé™¤æ’ç¨‹ä»»å‹™ ${task} æ™‚ç™¼ç”ŸéŒ¯èª¤: $($_) (Error deleting scheduled task ${task}: $($_))" -ForegroundColor Red
+            Write-Host "§R°£±Æµ{¥ô°È ${task} ®Éµo¥Í¿ù»~: $($_) (Error deleting scheduled task ${task}: $($_))" -ForegroundColor Red
         }
     }
 
-    # åŠŸèƒ½ 3ï¼šä¿®æ”¹è¨»å†Šè¡¨ä»¥ç¦ç”¨ AGS
-    Write-Host "æ­£åœ¨ä¿®æ”¹è¨»å†Šè¡¨ä»¥ç¦ç”¨ AGS... (Modifying registry to disable AGS...)" -ForegroundColor Yellow
+    # ¥\¯à 3¡G­×§ïµù¥Uªí¥H¸T¥Î AGS
+    Write-Host "¥¿¦b­×§ïµù¥Uªí¥H¸T¥Î AGS... (Modifying registry to disable AGS...)" -ForegroundColor Yellow
     try {
         $agsRegPath = "HKLM:\SYSTEM\CurrentControlSet\Services\AGSService"
         if (Test-Path $agsRegPath) {
             Set-ItemProperty -Path $agsRegPath -Name "Start" -Value 4 -ErrorAction Stop
-            Write-Host "å·²æˆåŠŸåœ¨è¨»å†Šè¡¨ä¸­ç¦ç”¨ AGSService (AGSService successfully disabled in registry)" -ForegroundColor Green
+            Write-Host "¤w¦¨¥\¦bµù¥Uªí¤¤¸T¥Î AGSService (AGSService successfully disabled in registry)" -ForegroundColor Green
         } else {
-            Write-Host "æœªæ‰¾åˆ° AGSService çš„è¨»å†Šè¡¨é …ç›®ï¼Œå¯èƒ½å·²è¢«ç§»é™¤ (AGSService registry entry not found, may have been removed)" -ForegroundColor Yellow
+            Write-Host "¥¼§ä¨ì AGSService ªºµù¥Uªí¶µ¥Ø¡A¥i¯à¤w³Q²¾°£ (AGSService registry entry not found, may have been removed)" -ForegroundColor Yellow
         }
     } catch {
-        Write-Host "ä¿®æ”¹è¨»å†Šè¡¨ç¦ç”¨ AGSService æ™‚ç™¼ç”ŸéŒ¯èª¤: $($_) (Error modifying registry to disable AGSService: $($_))" -ForegroundColor Red
+        Write-Host "­×§ïµù¥Uªí¸T¥Î AGSService ®Éµo¥Í¿ù»~: $($_) (Error modifying registry to disable AGSService: $($_))" -ForegroundColor Red
     }
 
-    # åŠŸèƒ½ 4ï¼šçµæŸä¸¦ç§»é™¤ AdobeGCInvoker é€²ç¨‹åŠç›¸é—œæ’ç¨‹ä»»å‹™
-    Write-Host "æ­£åœ¨çµæŸ AdobeGCInvoker é€²ç¨‹... (Terminating AdobeGCInvoker process...)" -ForegroundColor Yellow
+    # ¥\¯à 4¡Gµ²§ô¨Ã²¾°£ AdobeGCInvoker ¶iµ{¤Î¬ÛÃö±Æµ{¥ô°È
+    Write-Host "¥¿¦bµ²§ô AdobeGCInvoker ¶iµ{... (Terminating AdobeGCInvoker process...)" -ForegroundColor Yellow
     try {
         $gcInvokerProcess = Get-Process -Name "AGCInvokerUtility" -ErrorAction SilentlyContinue
         if ($gcInvokerProcess) {
             Stop-Process -Name "AGCInvokerUtility" -Force -ErrorAction Stop
-            Write-Host "å·²æˆåŠŸçµæŸ AdobeGCInvoker é€²ç¨‹ (AdobeGCInvoker process successfully terminated)" -ForegroundColor Green
+            Write-Host "¤w¦¨¥\µ²§ô AdobeGCInvoker ¶iµ{ (AdobeGCInvoker process successfully terminated)" -ForegroundColor Green
         } else {
-            Write-Host "æœªæ‰¾åˆ° AdobeGCInvoker é€²ç¨‹ (AdobeGCInvoker process not found)" -ForegroundColor Yellow
+            Write-Host "¥¼§ä¨ì AdobeGCInvoker ¶iµ{ (AdobeGCInvoker process not found)" -ForegroundColor Yellow
         }
     } catch {
-        Write-Host "çµæŸ AdobeGCInvoker é€²ç¨‹æ™‚ç™¼ç”ŸéŒ¯èª¤: $($_) (Error terminating AdobeGCInvoker process: $($_))" -ForegroundColor Red
+        Write-Host "µ²§ô AdobeGCInvoker ¶iµ{®Éµo¥Í¿ù»~: $($_) (Error terminating AdobeGCInvoker process: $($_))" -ForegroundColor Red
     }
 
     $gcInvokerTask = "AdobeGCInvoker-1"
-    Write-Host "æ­£åœ¨æª¢æŸ¥ä¸¦åˆªé™¤ AdobeGCInvoker æ’ç¨‹ä»»å‹™... (Checking and deleting AdobeGCInvoker scheduled task...)" -ForegroundColor Yellow
+    Write-Host "¥¿¦bÀË¬d¨Ã§R°£ AdobeGCInvoker ±Æµ{¥ô°È... (Checking and deleting AdobeGCInvoker scheduled task...)" -ForegroundColor Yellow
     try {
         $taskExists = Get-ScheduledTask -TaskName $gcInvokerTask -ErrorAction SilentlyContinue
         if ($taskExists) {
             Unregister-ScheduledTask -TaskName $gcInvokerTask -Confirm:$false -ErrorAction Stop
-            Write-Host "å·²æˆåŠŸåˆªé™¤æ’ç¨‹ä»»å‹™: $gcInvokerTask (Scheduled task $gcInvokerTask successfully deleted)" -ForegroundColor Green
+            Write-Host "¤w¦¨¥\§R°£±Æµ{¥ô°È: $gcInvokerTask (Scheduled task $gcInvokerTask successfully deleted)" -ForegroundColor Green
         } else {
-            Write-Host "æœªæ‰¾åˆ°æ’ç¨‹ä»»å‹™: $gcInvokerTask (Scheduled task $gcInvokerTask not found)" -ForegroundColor Yellow
+            Write-Host "¥¼§ä¨ì±Æµ{¥ô°È: $gcInvokerTask (Scheduled task $gcInvokerTask not found)" -ForegroundColor Yellow
         }
     } catch {
-        Write-Host "åˆªé™¤æ’ç¨‹ä»»å‹™ ${gcInvokerTask} æ™‚ç™¼ç”ŸéŒ¯èª¤: $($_) (Error deleting scheduled task ${gcInvokerTask}: $($_))" -ForegroundColor Red
+        Write-Host "§R°£±Æµ{¥ô°È ${gcInvokerTask} ®Éµo¥Í¿ù»~: $($_) (Error deleting scheduled task ${gcInvokerTask}: $($_))" -ForegroundColor Red
     }
 
-    # åŠŸèƒ½ 5ï¼šç¦ç”¨ Adobe Creative Cloud èƒŒæ™¯é€²ç¨‹åŠç›¸é—œæ’ç¨‹ä»»å‹™
-    Write-Host "æ­£åœ¨çµæŸ Adobe Creative Cloud ç›¸é—œé€²ç¨‹... (Terminating Adobe Creative Cloud related processes...)" -ForegroundColor Yellow
+    # ¥\¯à 5¡G¸T¥Î Adobe Creative Cloud ­I´º¶iµ{¤Î¬ÛÃö±Æµ{¥ô°È
+    Write-Host "¥¿¦bµ²§ô Adobe Creative Cloud ¬ÛÃö¶iµ{... (Terminating Adobe Creative Cloud related processes...)" -ForegroundColor Yellow
     $ccProcesses = @("Creative Cloud", "CCXProcess", "CCLibrary")
     foreach ($process in $ccProcesses) {
         try {
             $ccProcess = Get-Process -Name $process -ErrorAction SilentlyContinue
             if ($ccProcess) {
                 Stop-Process -Name $process -Force -ErrorAction Stop
-                Write-Host "å·²æˆåŠŸçµæŸé€²ç¨‹: $process (Process $process successfully terminated)" -ForegroundColor Green
+                Write-Host "¤w¦¨¥\µ²§ô¶iµ{: $process (Process $process successfully terminated)" -ForegroundColor Green
             } else {
-                Write-Host "æœªæ‰¾åˆ°é€²ç¨‹: $process (Process $process not found)" -ForegroundColor Yellow
+                Write-Host "¥¼§ä¨ì¶iµ{: $process (Process $process not found)" -ForegroundColor Yellow
             }
         } catch {
-            Write-Host "çµæŸé€²ç¨‹ ${process} æ™‚ç™¼ç”ŸéŒ¯èª¤: $($_) (Error terminating process ${process}: $($_))" -ForegroundColor Red
+            Write-Host "µ²§ô¶iµ{ ${process} ®Éµo¥Í¿ù»~: $($_) (Error terminating process ${process}: $($_))" -ForegroundColor Red
         }
     }
 
     $ccTask = "Adobe Creative Cloud"
-    Write-Host "æ­£åœ¨æª¢æŸ¥ä¸¦åˆªé™¤ Adobe Creative Cloud æ’ç¨‹ä»»å‹™... (Checking and deleting Adobe Creative Cloud scheduled task...)" -ForegroundColor Yellow
+    Write-Host "¥¿¦bÀË¬d¨Ã§R°£ Adobe Creative Cloud ±Æµ{¥ô°È... (Checking and deleting Adobe Creative Cloud scheduled task...)" -ForegroundColor Yellow
     try {
         $taskExists = Get-ScheduledTask -TaskName $ccTask -ErrorAction SilentlyContinue
         if ($taskExists) {
             Unregister-ScheduledTask -TaskName $ccTask -Confirm:$false -ErrorAction Stop
-            Write-Host "å·²æˆåŠŸåˆªé™¤æ’ç¨‹ä»»å‹™: $ccTask (Scheduled task $ccTask successfully deleted)" -ForegroundColor Green
+            Write-Host "¤w¦¨¥\§R°£±Æµ{¥ô°È: $ccTask (Scheduled task $ccTask successfully deleted)" -ForegroundColor Green
         } else {
-            Write-Host "æœªæ‰¾åˆ°æ’ç¨‹ä»»å‹™: $ccTask (Scheduled task $ccTask not found)" -ForegroundColor Yellow
+            Write-Host "¥¼§ä¨ì±Æµ{¥ô°È: $ccTask (Scheduled task $ccTask not found)" -ForegroundColor Yellow
         }
     } catch {
-        Write-Host "åˆªé™¤æ’ç¨‹ä»»å‹™ ${ccTask} æ™‚ç™¼ç”ŸéŒ¯èª¤: $($_) (Error deleting scheduled task ${ccTask}: $($_))" -ForegroundColor Red
+        Write-Host "§R°£±Æµ{¥ô°È ${ccTask} ®Éµo¥Í¿ù»~: $($_) (Error deleting scheduled task ${ccTask}: $($_))" -ForegroundColor Red
     }
+
+    # °õ¦æ¨¾¤õÀğ«ÊÂê¥\¯à
+    Block-AdobeFirewall
 }
 
-# ä½¿ç”¨è€…é¸æ“‡æ›´æ–°æ¨¡å¼
-Write-Host "`nè«‹é¸æ“‡æ›´æ–°æ¨¡å¼ (Please select update mode):" -ForegroundColor Cyan
-Write-Host "1. åƒ…åŸ·è¡Œæœ¬æ¬¡æ›´æ–° (Run update once)" -ForegroundColor Yellow
-Write-Host "2. è¨­å®šæ¯å‘¨è‡ªå‹•æ›´æ–° (Schedule weekly update)" -ForegroundColor Yellow
-$choice = Read-Host "è¼¸å…¥ 1 æˆ– 2 (Enter 1 or 2)"
+# ¨Ï¥ÎªÌ¿ï¾Ü§ó·s¼Ò¦¡
+Write-Host "`n½Ğ¿ï¾Ü§ó·s¼Ò¦¡ (Please select update mode):" -ForegroundColor Cyan
+Write-Host "1. ¶È°õ¦æ¥»¦¸§ó·s (Run update once)" -ForegroundColor Yellow
+Write-Host "2. ³]©w¨C©P¦Û°Ê§ó·s (Schedule weekly update)" -ForegroundColor Yellow
+Write-Host "3. ¶È§R°£¨¾¤õÀğ³W«h (Delete firewall rules only)" -ForegroundColor Yellow
+$choice = Read-Host "¿é¤J 1, 2 ©Î 3 (Enter 1, 2, or 3)"
 
 if ($choice -eq "1") {
     Update-HostsAndServices
 } elseif ($choice -eq "2") {
     $taskName = "WeeklyHostsUpdate"
-    $taskDescription = "Weekly update of hosts file and Adobe services cleanup (æ¯å‘¨æ›´æ–° hosts æª”æ¡ˆå’Œ Adobe æœå‹™æ¸…ç†)"
+    $taskDescription = "Weekly update of hosts file, Adobe services cleanup, and firewall rules (¨C©P§ó·s hosts ÀÉ®×¡BAdobe ªA°È²M²z©M¨¾¤õÀğ³W«h)"
     $scriptPath = $PSCommandPath
     $trigger = New-ScheduledTaskTrigger -Weekly -DaysOfWeek Monday -At "9:00AM"
     $action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-NoProfile -ExecutionPolicy Bypass -File `"$scriptPath`""
     
     try {
         Register-ScheduledTask -TaskName $taskName -Description $taskDescription -Trigger $trigger -Action $action -RunLevel Highest -Force
-        Write-Host "å·²æˆåŠŸè¨­å®šæ¯å‘¨ä¸€ä¸Šåˆ9é»è‡ªå‹•æ›´æ–° (Weekly update scheduled successfully for every Monday at 9:00 AM)" -ForegroundColor Green
+        Write-Host "¤w¦¨¥\³]©w¨C©P¤@¤W¤È9ÂI¦Û°Ê§ó·s (Weekly update scheduled successfully for every Monday at 9:00 AM)" -ForegroundColor Green
         Update-HostsAndServices
     } catch {
-        Write-Host "è¨­å®šæ’ç¨‹ä»»å‹™å¤±æ•—: $($_) (Failed to set up scheduled task: $($_))" -ForegroundColor Red
+        Write-Host "³]©w±Æµ{¥ô°È¥¢±Ñ: $($_) (Failed to set up scheduled task: $($_))" -ForegroundColor Red
     }
+} elseif ($choice -eq "3") {
+    Block-AdobeFirewall -Delete
 } else {
-    Write-Host "ç„¡æ•ˆçš„é¸æ“‡ï¼Œè…³æœ¬å°‡é€€å‡º (Invalid choice, script will exit)" -ForegroundColor Red
+    Write-Host "µL®Äªº¿ï¾Ü¡A¸}¥»±N°h¥X (Invalid choice, script will exit)" -ForegroundColor Red
 }
 
-# é¡¯ç¤ºå®Œæˆè¨Šæ¯å’Œä½œè€…è³‡è¨Š
-Write-Host "`næ‰€æœ‰æ“ä½œå·²å®Œæˆï¼(All operations completed!)" -ForegroundColor Cyan
-Write-Host "æ‚¨å¯ä»¥åœ¨ 'å·¥ä½œæ’ç¨‹å™¨' ä¸­æŸ¥çœ‹æˆ–ä¿®æ”¹ä»»å‹™ 'WeeklyHostsUpdate' (You can view or modify the 'WeeklyHostsUpdate' task in Task Scheduler)" -ForegroundColor Yellow
+# Åã¥Ü§¹¦¨°T®§©M§@ªÌ¸ê°T
+Write-Host "`n©Ò¦³¾Ş§@¤w§¹¦¨¡I(All operations completed!)" -ForegroundColor Cyan
+Write-Host "±z¥i¥H¦b '¤u§@±Æµ{¾¹' ¤¤¬d¬İ©Î­×§ï¥ô°È 'WeeklyHostsUpdate' (You can view or modify the 'WeeklyHostsUpdate' task in Task Scheduler)" -ForegroundColor Yellow
 $authorInfo = @"
 
 ====================================================
-   Adobe Hosts Update and Service Removal Tool
-   Author/ä½œè€…: blues32767
-   Version/ç‰ˆæœ¬: v3.20250328
+   Adobe Hosts Update, Service Removal, and Firewall Tool
+   Author/§@ªÌ: blues32767
+   Version/ª©¥»: v3.20250420
    https://github.com/blues32767
+   Firewall functionality adapted from: https://github.com/ph33nx
 ====================================================
 
 "@
