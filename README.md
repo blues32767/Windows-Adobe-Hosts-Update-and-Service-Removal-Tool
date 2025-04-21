@@ -4,6 +4,7 @@
 **作者/Author**: blues32767\
 **GitHub**: https://github.com/blues32767
 
+說明網頁　／　Introduction page：https://blues32767.github.io/Windows-Adobe-Hosts-Update-and-Service-Removal-Tool/
 ## 下載連結 / Download Link
 
 下載最新版本 / Download the latest version:\
