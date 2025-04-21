@@ -223,6 +223,37 @@
       font-size: 14px;
     }
     
+    .step-container {
+      display: flex;
+      margin-bottom: 30px;
+    }
+    
+    .step-number {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 36px;
+      height: 36px;
+      background-color: var(--google-blue);
+      color: white;
+      border-radius: 50%;
+      font-family: 'Google Sans', sans-serif;
+      font-weight: 500;
+      margin-right: 15px;
+      flex-shrink: 0;
+    }
+    
+    .step-content {
+      flex-grow: 1;
+    }
+    
+    .step-title {
+      font-family: 'Google Sans', sans-serif;
+      font-size: 18px;
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+    
     @media (max-width: 768px) {
       .features-grid {
         grid-template-columns: 1fr;
@@ -234,6 +265,14 @@
       
       .container {
         padding: 15px;
+      }
+      
+      .step-container {
+        flex-direction: column;
+      }
+      
+      .step-number {
+        margin-bottom: 10px;
       }
     }
   </style>
@@ -255,26 +294,68 @@
     </section>
     
     <section class="section">
-      <h2>啟動方式 / How to Run</h2>
-      <p>此腳本透過 .bat 檔案以管理員權限啟動 PowerShell 腳本。請按照以下步驟執行：<br>
-      This script uses a .bat file to launch the PowerShell script with administrator privileges. Follow these steps to run it:</p>
+      <h2>使用方法 / Usage</h2>
       
-      <h3>下載並解壓縮 / Download and Extract</h3>
-      <div class="bilingual">
-        <p>下載上述 ZIP 檔案並解壓縮至任意目錄。<br>
-        Download the ZIP file above and extract it to any directory.</p>
+      <h3>前置條件 / Prerequisites</h3>
+      <ul>
+        <li><strong>作業系統 / Operating System:</strong> Windows 10 或更高版本 / Windows 10 or higher</li>
+        <li><strong>權限 / Permissions:</strong> 必須以管理員身份運行 / Must run as administrator</li>
+        <li><strong>PowerShell 版本 / PowerShell Version:</strong> 建議 5.1 或更高 / Recommended 5.1 or higher</li>
+      </ul>
+      
+      <h3>安裝與執行步驟 / Installation and Execution Steps</h3>
+      
+      <div class="step-container">
+        <div class="step-number">1</div>
+        <div class="step-content">
+          <div class="step-title">下載並解壓縮 / Download and Extract</div>
+          <p>從上方提供的連結下載 ZIP 檔案並解壓縮至任意目錄。<br>
+          Download the ZIP file from the link above and extract it to any directory.</p>
+        </div>
       </div>
       
-      <h3>執行 BAT 檔案 / Run the BAT File</h3>
-      <div class="bilingual">
-        <p>雙擊解壓縮後的 Update-Hosts-adobe.bat 檔案，系統將自動以管理員權限運行 Update-Hosts-adobe.ps1。<br>
-        Double-click the extracted Update-Hosts-adobe.bat file, and the system will automatically run Update-Hosts-adobe.ps1 with administrator privileges.</p>
+      <div class="step-container">
+        <div class="step-number">2</div>
+        <div class="step-content">
+          <div class="step-title">執行 BAT 檔案 / Run the BAT File</div>
+          <p>雙擊解壓縮後的 Update-Hosts-adobe.bat 檔案，系統將自動以管理員權限運行 Update-Hosts-adobe.ps1。<br>
+          Double-click the extracted Update-Hosts-adobe.bat file, and the system will automatically run Update-Hosts-adobe.ps1 with administrator privileges.</p>
+        </div>
       </div>
       
-      <h3>確認執行 / Confirm Execution</h3>
-      <div class="bilingual">
-        <p>若出現 UAC（使用者帳戶控制）提示，請點擊「是 (Yes)」以授予管理員權限。<br>
-        If a UAC (User Account Control) prompt appears, click "Yes" to grant administrator privileges.</p>
+      <div class="step-container">
+        <div class="step-number">3</div>
+        <div class="step-content">
+          <div class="step-title">確認執行 / Confirm Execution</div>
+          <p>若出現 UAC（使用者帳戶控制）提示，請點擊「是 (Yes)」以授予管理員權限。<br>
+          If a UAC (User Account Control) prompt appears, click "Yes" to grant administrator privileges.</p>
+        </div>
+      </div>
+      
+      <div class="step-container">
+        <div class="step-number">4</div>
+        <div class="step-content">
+          <div class="step-title">選擇模式 / Select Mode</div>
+          <p>腳本啟動後，您將看到以下選項：<br>
+          After the script starts, you will see the following options:</p>
+          <ul>
+            <li><strong>輸入 1:</strong> 進行單次更新（包括 hosts 更新、服務清理和防火牆封鎖）<br>
+            <strong>Enter 1:</strong> For a one-time update (including hosts update, service cleanup, and firewall blocking)</li>
+            <li><strong>輸入 2:</strong> 設定每周一上午 9:00 自動更新（透過 Windows 工作排程器）<br>
+            <strong>Enter 2:</strong> To schedule a weekly update every Monday at 9:00 AM (via Windows Task Scheduler)</li>
+            <li><strong>輸入 3:</strong> 僅刪除防火牆規則<br>
+            <strong>Enter 3:</strong> To delete firewall rules only</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="step-container">
+        <div class="step-number">5</div>
+        <div class="step-content">
+          <div class="step-title">查看結果 / View Results</div>
+          <p>腳本將顯示每一步的執行狀態（成功、失敗或未找到）。完成後，您可以查看結果並確認更改是否生效。<br>
+          The script will display the status of each step (success, failure, or not found). After completion, you can check the results and confirm if the changes have taken effect.</p>
+        </div>
       </div>
     </section>
     
@@ -353,40 +434,6 @@
           <p>Firewall functionality adapted from: <a href="https://github.com/ph33nx" target="_blank">https://github.com/ph33nx</a></p>
         </div>
       </div>
-    </section>
-    
-    <section class="section">
-      <h2>使用方法 / Usage</h2>
-      <h3>前置條件 / Prerequisites</h3>
-      <ul>
-        <li><strong>作業系統 / Operating System:</strong> Windows 10 或更高版本 / Windows 10 or higher</li>
-        <li><strong>權限 / Permissions:</strong> 必須以管理員身份運行 / Must run as administrator</li>
-        <li><strong>PowerShell 版本 / PowerShell Version:</strong> 建議 5.1 或更高 / Recommended 5.1 or higher</li>
-      </ul>
-      
-      <h3>詳細步驟 / Detailed Steps</h3>
-      <ol>
-        <li>
-          <strong>下載並解壓縮 / Download and Extract</strong><br>
-          從上方提供的連結下載 ZIP 檔案並解壓縮。<br>
-          Download the ZIP file from the link above and extract it.
-        </li>
-        <li>
-          <strong>執行腳本 / Run the Script</strong><br>
-          雙擊 Update-Hosts-adobe.bat，腳本將自動以管理員權限啟動。<br>
-          Double-click Update-Hosts-adobe.bat, and the script will start with administrator privileges.
-        </li>
-        <li>
-          <strong>選擇模式 / Select Mode</strong><br>
-          輸入 1 進行單次更新（包括 hosts 更新、服務清理和防火牆封鎖），輸入 2 設定每周自動更新，或輸入 3 僅刪除防火牆規則。<br>
-          Enter 1 for a one-time update (including hosts update, service cleanup, and firewall blocking), 2 to schedule a weekly update, or 3 to delete firewall rules only.
-        </li>
-        <li>
-          <strong>查看結果 / View Results</strong><br>
-          腳本將顯示每一步的執行狀態（成功、失敗或未找到）。<br>
-          The script will display the status of each step (success, failure, or not found).
-        </li>
-      </ol>
     </section>
     
     <section class="section">
