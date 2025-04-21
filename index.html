@@ -34,6 +34,7 @@
       max-width: 1000px;
       margin: 0 auto;
       padding: 20px;
+      position: relative;
     }
     
     header {
@@ -310,6 +311,21 @@
       display: block;
     }
     
+    .language-link {
+      margin-top: 10px;
+      text-align: center;
+    }
+    
+    .language-link a {
+      color: var(--google-blue);
+      text-decoration: none;
+      margin: 0 10px;
+    }
+    
+    .language-link a:hover {
+      text-decoration: underline;
+    }
+    
     @media (max-width: 768px) {
       .features-grid {
         grid-template-columns: 1fr;
@@ -344,9 +360,15 @@
 <body>
   <div class="container bilingual-text" id="main-container">
     <div class="language-switch">
-      <button class="language-btn" data-lang="bilingual">中/EN</button>
-      <button class="language-btn" data-lang="zh">中文</button>
-      <button class="language-btn" data-lang="en">English</button>
+      <button class="language-btn" id="bilingual-btn">中/EN</button>
+      <button class="language-btn" id="zh-btn">中文</button>
+      <button class="language-btn" id="en-btn">English</button>
+    </div>
+    
+    <div class="language-link">
+      <a href="index.html">中文/英文</a> | 
+      <a href="index.html?lang=zh">中文</a> | 
+      <a href="index.html?lang=en">English</a>
     </div>
     
     <header>
@@ -680,12 +702,4 @@
             <span class="zh-content">備份:</span>
             <span class="en-content">Backup:</span>
           </strong> 
-          <span class="zh-content">腳本會自動備份原始 hosts 檔案至 hosts.bak，但建議手動備份重要資料。</span>
-          <span class="en-content">The script automatically backs up the original hosts file to hosts.bak, but manual backup of important data is recommended.</span>
-        </li>
-        <li>
-          <strong>
-            <span class="zh-content">錯誤排查:</span>
-            <span class="en-content">Troubleshooting:</span>
-          </strong> 
-          <span class="zh-content">若腳本閃退，請檢查檔案編碼（建議 UTF-8 with BOM）或以命令列運行查看錯誤訊息
+          <span class="zh-content">腳本會自動備份原始 hosts 檔案至 hosts.bak，但建議手動備份重要資
