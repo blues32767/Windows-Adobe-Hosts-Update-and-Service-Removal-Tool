@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Windows Adobe Hosts Update Tool</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --google-blue: #4285F4;
+      --google-red: #EA4335;
+      --google-yellow: #FBBC05;
+      --google-green: #34A853;
+      --google-grey: #5F6368;
+      --google-light-grey: #F8F9FA;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Roboto', sans-serif;
+      line-height: 1.6;
+      color: #202124;
+      background-color: var(--google-light-grey);
+    }
+    
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    header {
+      text-align: center;
+      padding: 40px 0;
+    }
+    
+    h1 {
+      font-family: 'Google Sans', sans-serif;
+      font-size: 36px;
+      font-weight: 500;
+      margin-bottom: 10px;
+      color: var(--google-blue);
+    }
+    
+    .subtitle {
+      font-size: 18px;
+      color: var(--google-grey);
+      margin-bottom: 20px;
+    }
+    
+    .author {
+      font-size: 16px;
+      margin-bottom: 30px;
+    }
+    
+    .download-section {
+      background-color: white;
+      border-radius: 8px;
+      padding: 30px;
+      margin-bottom: 30px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+    }
+    
+    .section {
+      background-color: white;
+      border-radius: 8px;
+      padding: 30px;
+      margin-bottom: 30px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+    }
+    
+    h2 {
+      font-family: 'Google Sans', sans-serif;
+      font-size: 24px;
+      font-weight: 500;
+      margin-bottom: 20px;
+      position: relative;
+      padding-left: 15px;
+    }
+    
+    h2::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 5px;
+      height: 24px;
+      background-color: var(--google-blue);
+      border-radius: 4px;
+    }
+    
+    h3 {
+      font-family: 'Google Sans', sans-serif;
+      font-size: 20px;
+      font-weight: 500;
+      margin: 25px 0 15px;
+      color: var(--google-grey);
+    }
+    
+    p, li {
+      margin-bottom: 15px;
+      font-size: 16px;
+    }
+    
+    ul, ol {
+      padding-left: 20px;
+      margin-bottom: 20px;
+    }
+    
+    .download-button {
+      display: inline-block;
+      background-color: var(--google-blue);
+      color: white;
+      font-family: 'Google Sans', sans-serif;
+      font-size: 16px;
+      font-weight: 500;
+      padding: 12px 24px;
+      border-radius: 4px;
+      text-decoration: none;
+      margin: 20px 0;
+      transition: background-color 0.2s;
+    }
+    
+    .download-button:hover {
+      background-color: #3367D6;
+    }
+    
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+      margin: 30px 0;
+    }
+    
+    .feature-card {
+      background-color: var(--google-light-grey);
+      border-radius: 8px;
+      padding: 20px;
+      border-top: 4px solid;
+    }
+    
+    .feature-card:nth-child(4n+1) {
+      border-top-color: var(--google-blue);
+    }
+    
+    .feature-card:nth-child(4n+2) {
+      border-top-color: var(--google-red);
+    }
+    
+    .feature-card:nth-child(4n+3) {
+      border-top-color: var(--google-yellow);
+    }
+    
+    .feature-card:nth-child(4n+4) {
+      border-top-color: var(--google-green);
+    }
+    
+    .feature-title {
+      font-family: 'Google Sans', sans-serif;
+      font-size: 18px;
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+    
+    code {
+      background-color: #f5f5f5;
+      padding: 2px 5px;
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 14px;
+    }
+    
+    .code-block {
+      background-color: #f5f5f5;
+      padding: 15px;
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 14px;
+      overflow-x: auto;
+      margin-bottom: 20px;
+    }
+    
+    .bilingual {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    
+    .bilingual-item {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .lang-label {
+      min-width: 30px;
+      color: var(--google-grey);
+      font-size: 14px;
+    }
+    
+    .changelog {
+      border-left: 4px solid var(--google-green);
+      padding-left: 15px;
+      margin: 20px 0;
+    }
+    
+    .changelog-date {
+      font-weight: 500;
+      color: var(--google-green);
+    }
+    
+    footer {
+      text-align: center;
+      padding: 30px 0;
+      color: var(--google-grey);
+      font-size: 14px;
+    }
+    
+    @media (max-width: 768px) {
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      h1 {
+        font-size: 28px;
+      }
+      
+      .container {
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Windows Adobe Hosts Update and Service Removal Tool</h1>
+      <div class="subtitle">更新 Windows hosts 檔案並清理 Adobe 相關服務的工具</div>
+      <div class="author">作者/Author: blues32767 | <a href="https://github.com/blues32767" target="_blank">GitHub</a></div>
+    </header>
+    
+    <section class="download-section">
+      <h2>下載連結 / Download Link</h2>
+      <p>下載最新版本 / Download the latest version:</p>
+      <a href="https://github.com/blues32767/Windows-Adobe-Hosts-Update-and-Service-Removal-Tool/releases/download/v2.20250420/Update-Hosts-adobe-hostsfromweb.zip" class="download-button">
+        下載 v2.20250420 / Download v2.20250420
+      </a>
+    </section>
+    
+    <section class="section">
+      <h2>啟動方式 / How to Run</h2>
+      <p>此腳本透過 .bat 檔案以管理員權限啟動 PowerShell 腳本。請按照以下步驟執行：<br>
+      This script uses a .bat file to launch the PowerShell script with administrator privileges. Follow these steps to run it:</p>
+      
+      <h3>下載並解壓縮 / Download and Extract</h3>
+      <div class="bilingual">
+        <p>下載上述 ZIP 檔案並解壓縮至任意目錄。<br>
+        Download the ZIP file above and extract it to any directory.</p>
+      </div>
+      
+      <h3>執行 BAT 檔案 / Run the BAT File</h3>
+      <div class="bilingual">
+        <p>雙擊解壓縮後的 Update-Hosts-adobe.bat 檔案，系統將自動以管理員權限運行 Update-Hosts-adobe.ps1。<br>
+        Double-click the extracted Update-Hosts-adobe.bat file, and the system will automatically run Update-Hosts-adobe.ps1 with administrator privileges.</p>
+      </div>
+      
+      <h3>確認執行 / Confirm Execution</h3>
+      <div class="bilingual">
+        <p>若出現 UAC（使用者帳戶控制）提示，請點擊「是 (Yes)」以授予管理員權限。<br>
+        If a UAC (User Account Control) prompt appears, click "Yes" to grant administrator privileges.</p>
+      </div>
+    </section>
+    
+    <section class="section">
+      <h2>簡介 / Introduction</h2>
+      <div class="bilingual">
+        <p>此 PowerShell 腳本旨在更新 Windows 的 hosts 檔案並清理 Adobe 相關的驗證服務與進程，以防止 Adobe Genuine Software Integrity Service (AGS) 等驗證機制干擾使用。它提供單次執行或每周自動更新的選項，並包含多項進階清理功能。<br>
+        This PowerShell script is designed to update the Windows hosts file and remove Adobe-related validation services and processes, preventing interference from mechanisms like Adobe Genuine Software Integrity Service (AGS). It offers options for one-time execution or weekly scheduled updates, with advanced cleanup features.</p>
+      </div>
+    </section>
+    
+    <section class="section">
+      <h2>功能 / Features</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-title">從網址更新 hosts 檔案 / Update hosts file from URL</div>
+          <p>從 <a href="https://a.dove.isdumb.one/list.txt" target="_blank">https://a.dove.isdumb.one/list.txt</a> 下載 hosts 內容並更新系統檔案，移除重複項目。<br>
+          Downloads hosts content from <a href="https://a.dove.isdumb.one/list.txt" target="_blank">https://a.dove.isdumb.one/list.txt</a> and updates the system file, removing duplicates.</p>
+          <p>Update hosts source: <a href="https://github.com/ignaciocastro/a-dove-is-dumb" target="_blank">https://github.com/ignaciocastro/a-dove-is-dumb</a></p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-title">清理 Adobe 服務 / Clean Adobe Services</div>
+          <p>停用並刪除 AGSService 和 AAMUpdater 服務。<br>
+          Disables and deletes AGSService and AAMUpdater services.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-title">移除 Adobe 相關資料夾 / Remove Adobe Related Folders</div>
+          <p>刪除 C:\Program Files (x86)\Common Files\Adobe\AdobeGCClient 和 C:\Program Files (x86)\Common Files\Adobe\OOBE\PDApp\UWA。<br>
+          Deletes C:\Program Files (x86)\Common Files\Adobe\AdobeGCClient and C:\Program Files (x86)\Common Files\Adobe\OOBE\PDApp\UWA.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-title">清除 DNS 快取 / Clear DNS Cache</div>
+          <p>執行 ipconfig /flushdns 確保 hosts 變更立即生效。<br>
+          Runs ipconfig /flushdns to ensure hosts changes take effect immediately.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-title">檢查並刪除 Adobe 排程任務 / Check and Delete Adobe Scheduled Tasks</div>
+          <p>檢查並移除以下 Adobe 相關排程任務：Adobe Acrobat Update Task、Adobe-Genuine-Software-Integrity-Scheduler、AdobeGCInvoker-1 和 Adobe Creative Cloud。<br>
+          Checks and removes the following Adobe-related scheduled tasks: Adobe Acrobat Update Task, Adobe-Genuine-Software-Integrity-Scheduler, AdobeGCInvoker-1, and Adobe Creative Cloud.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-title">修改註冊表以禁用 AGS / Modify Registry to Disable AGS</div>
+          <p>在 HKLM:\SYSTEM\CurrentControlSet\Services\AGSService 中將 Start 值設為 4，禁用 AGS 服務啟動。<br>
+          Sets the Start value to 4 in HKLM:\SYSTEM\CurrentControlSet\Services\AGSService to disable AGS service startup.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-title">結束並移除 AdobeGCInvoker 進程 / Terminate and Remove AdobeGCInvoker Process</div>
+          <p>結束 AGCInvokerUtility 進程並移除相關排程任務。<br>
+          Terminates the AGCInvokerUtility process and removes its related scheduled task.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-title">禁用 Adobe Creative Cloud 背景進程 / Disable Adobe Creative Cloud Background Processes</div>
+          <p>結束 Creative Cloud、CCXProcess 和 CCLibrary 進程，並移除相關排程任務。<br>
+          Terminates Creative Cloud, CCXProcess, and CCLibrary processes, and removes their related scheduled task.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-title">更新模式選擇 / Update Mode Selection</div>
+          <p>使用者可選擇單次更新或設定每周一上午 9:00 自動更新（透過 Windows 工作排程器）。<br>
+          Users can choose a one-time update or schedule a weekly update every Monday at 9:00 AM (via Windows Task Scheduler).</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-title">封鎖 Adobe 相關可執行文件的防火牆規則 / Block Adobe-related Executables in Firewall</div>
+          <p>為 Adobe 相關目錄（例如 C:\Program Files\Adobe 和 C:\Program Files (x86)\Adobe）中的可執行文件創建入站和出站防火牆規則，阻止其網路訪問。<br>
+          Creates inbound and outbound firewall rules for executables in Adobe-related directories (e.g., C:\Program Files\Adobe and C:\Program Files (x86)\Adobe), blocking their network access.</p>
+          <p>支援刪除現有防火牆規則的選項。<br>
+          Supports an option to delete existing firewall rules.</p>
+          <p>Firewall functionality adapted from: <a href="https://github.com/ph33nx" target="_blank">https://github.com/ph33nx</a></p>
+        </div>
+      </div>
+    </section>
+    
+    <section class="section">
+      <h2>使用方法 / Usage</h2>
+      <h3>前置條件 / Prerequisites</h3>
+      <ul>
+        <li><strong>作業系統 / Operating System:</strong> Windows 10 或更高版本 / Windows 10 or higher</li>
+        <li><strong>權限 / Permissions:</strong> 必須以管理員身份運行 / Must run as administrator</li>
+        <li><strong>PowerShell 版本 / PowerShell Version:</strong> 建議 5.1 或更高 / Recommended 5.1 or higher</li>
+      </ul>
+      
+      <h3>詳細步驟 / Detailed Steps</h3>
+      <ol>
+        <li>
+          <strong>下載並解壓縮 / Download and Extract</strong><br>
+          從上方提供的連結下載 ZIP 檔案並解壓縮。<br>
+          Download the ZIP file from the link above and extract it.
+        </li>
+        <li>
+          <strong>執行腳本 / Run the Script</strong><br>
+          雙擊 Update-Hosts-adobe.bat，腳本將自動以管理員權限啟動。<br>
+          Double-click Update-Hosts-adobe.bat, and the script will start with administrator privileges.
+        </li>
+        <li>
+          <strong>選擇模式 / Select Mode</strong><br>
+          輸入 1 進行單次更新（包括 hosts 更新、服務清理和防火牆封鎖），輸入 2 設定每周自動更新，或輸入 3 僅刪除防火牆規則。<br>
+          Enter 1 for a one-time update (including hosts update, service cleanup, and firewall blocking), 2 to schedule a weekly update, or 3 to delete firewall rules only.
+        </li>
+        <li>
+          <strong>查看結果 / View Results</strong><br>
+          腳本將顯示每一步的執行狀態（成功、失敗或未找到）。<br>
+          The script will display the status of each step (success, failure, or not found).
+        </li>
+      </ol>
+    </section>
+    
+    <section class="section">
+      <h2>注意事項 / Notes</h2>
+      <ul>
+        <li>
+          <strong>合法性 / Legality:</strong> 此腳本僅供學習和測試用途，修改 Adobe 驗證機制可能違反其使用條款，請自行承擔風險。<br>
+          This script is for educational and testing purposes only. Modifying Adobe validation mechanisms may violate its terms of use; use at your own risk.
+        </li>
+        <li>
+          <strong>備份 / Backup:</strong> 腳本會自動備份原始 hosts 檔案至 hosts.bak，但建議手動備份重要資料。<br>
+          The script automatically backs up the original hosts file to hosts.bak, but manual backup of important data is recommended.
+        </li>
+        <li>
+          <strong>錯誤排查 / Troubleshooting:</strong> 若腳本閃退，請檢查檔案編碼（建議 UTF-8 with BOM）或以命令列運行查看錯誤訊息：<br>
+          If the script crashes, check the file encoding (recommended UTF-8 with BOM) or run it from the command line to view error messages:
+          <div class="code-block">powershell.exe -File "C:\path\to\Update-Hosts-adobe.ps1"</div>
+        </li>
+        <li>
+          <strong>排程管理 / Schedule Management:</strong> 自動更新任務名為 WeeklyHostsUpdate，可在「工作排程器 (Task Scheduler)」中查看或修改。<br>
+          The scheduled task is named WeeklyHostsUpdate and can be viewed or modified in Task Scheduler.
+        </li>
+      </ul>
+    </section>
+    
+    <section class="section">
+      <h2>貢獻 / Contributing</h2>
+      <p>歡迎提交問題或拉取請求以改進此腳本！<br>
+      Feel free to submit issues or pull requests to improve this script!</p>
+    </section>
+    
+    <section class="section">
+      <h2>更新紀錄 / Change Log</h2>
+      <div class="changelog">
+        <p class="changelog-date">2025-04-20:</p>
+        <ul>
+          <li><strong>新增功能:</strong> 添加封鎖 Adobe 相關可執行文件的防火牆功能，阻止其入站和出站網路訪問，支援刪除現有規則的選項（改進自 <a href="https://github.com/ph33nx" target="_blank">https://github.com/ph33nx</a>）。<br>
+          <strong>New Feature:</strong> Added firewall blocking for Adobe-related executables, preventing inbound and outbound network access, with an option to delete existing rules (adapted from <a href="https://github.com/ph33nx" target="_blank">https://github.com/ph33nx</a>).</li>
+          <li><strong>版本 / Version:</strong> v3.20250420</li>
+          <li><strong>修正:</strong> 修復防火牆功能中的語法錯誤，確保腳本穩定執行。<br>
+          <strong>Fix:</strong> Fixed syntax error in firewall functionality to ensure stable execution.</li>
+        </ul>
+      </div>
+    </section>
+    
+    <footer>
+      <p>© 2025 blues32767 | <a href="https://github.com/blues32767" target="_blank">GitHub</a></p>
+    </footer>
+  </div>
+</body>
+</html>
