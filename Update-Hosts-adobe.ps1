@@ -27,21 +27,30 @@ if (-NOT ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
     exit
 }
 
-# 定義防火牆封鎖函數
+# 定義防火牆封鎖函數 (已修正刪除邏輯)
 function Block-AdobeFirewall {
     param (
         [switch]$Delete
     )
 
     if ($Delete) {
-        Write-Host "正在刪除現有的Adobe防火牆規則... (Deleting existing Adobe firewall rules...)" -ForegroundColor Yellow
+        Write-Host "正在搜尋並刪除 Adobe 防火牆規則... (Searching and removing Adobe firewall rules...)" -ForegroundColor Yellow
         try {
-            $rules = Get-NetFirewallRule | Where-Object { $_.DisplayName -like '*adobe-block' }
-            foreach ($rule in $rules) {
-                Remove-NetFirewallRule -DisplayName $rule.DisplayName -ErrorAction SilentlyContinue
-                Write-Host "已刪除防火牆規則: $($rule.DisplayName) (Firewall rule deleted: $($rule.DisplayName))" -ForegroundColor Green
+            # 改用 DisplayName 通配符直接搜尋，速度更快
+            $rules = Get-NetFirewallRule -DisplayName "*adobe-block*" -ErrorAction SilentlyContinue
+            
+            if ($rules) {
+                # 統計數量
+                $count = @($rules).Count
+                Write-Host "發現 $count 條相關規則，正在執行批量刪除，請稍候... (Found $count rules, performing bulk deletion, please wait...)" -ForegroundColor Yellow
+                
+                # [關鍵修正] 使用管道批量刪除，不使用 Foreach 迴圈列印，避免刷屏和假死現象
+                $rules | Remove-NetFirewallRule -ErrorAction SilentlyContinue
+                
+                Write-Host "防火牆規則刪除完成 (Firewall rules deletion completed)" -ForegroundColor Green
+            } else {
+                Write-Host "未發現相關防火牆規則 (No related firewall rules found)" -ForegroundColor Green
             }
-            Write-Host "防火牆規則刪除完成 (Firewall rules deletion completed)" -ForegroundColor Green
         } catch {
             Write-Host "刪除防火牆規則時發生錯誤: $($_) (Error deleting firewall rules: $($_))" -ForegroundColor Red
         }
@@ -64,6 +73,10 @@ function Block-AdobeFirewall {
             foreach ($exe in $executables) {
                 $exeName = [System.IO.Path]::GetFileNameWithoutExtension($exe.Name)
                 $ruleName = "$exeName adobe-block"
+                
+                # 簡單檢查是否已存在，避免重複建立 (雖然 New-NetFirewallRule 可能會報錯，但這裡做個預防)
+                # 為了效能，這裡保持原本的 Try-Catch 結構，但建立時可考慮檢查
+                
                 Write-Host "正在封鎖: $exeName (Blocking: $exeName)" -ForegroundColor Yellow
                 try {
                     # 創建出站規則
@@ -286,12 +299,83 @@ function Update-HostsAndServices {
     Block-AdobeFirewall
 }
 
+# 定義還原預設值函數
+function Restore-DefaultSettings {
+    Write-Host "`n=== 正在開始還原所有設定 (Starting full restoration) ===" -ForegroundColor Cyan
+    
+    # 1. 還原 HOSTS 檔案
+    $hostsFilePath = "$env:SystemRoot\System32\drivers\etc\hosts"
+    $cleanHostsContent = @"
+# Copyright (c) 1993-2006 Microsoft Corp.
+#
+# This is a sample HOSTS file used by Microsoft TCP/IP for Windows.
+#
+# This file contains the mappings of IP addresses to host names. Each
+# entry should be kept on an individual line. The IP address should
+# be placed in the first column followed by the corresponding host name.
+# The IP address and the host name should be separated by at least one
+# space.
+#
+# Additionally, comments (such as these) may be inserted on individual
+# lines or following the machine name denoted by a '#' symbol.
+#
+# For example:
+#
+# 102.54.94.97 rhino.acme.com # source server
+# 38.25.63.10 x.acme.com # x client host
+# localhost name resolution is handle within DNS itself.
+# 127.0.0.1 localhost
+# ::1 localhost
+"@
+
+    try {
+        # 確保檔案可寫
+        if (Test-Path $hostsFilePath) {
+            Set-ItemProperty -Path $hostsFilePath -Name IsReadOnly -Value $false -ErrorAction SilentlyContinue
+        }
+        
+        $cleanHostsContent | Out-File -FilePath $hostsFilePath -Encoding ASCII -Force
+        Write-Host "已將 HOSTS 檔案還原為預設純淨狀態 (HOSTS file restored to default clean state)" -ForegroundColor Green
+        
+        ipconfig /flushdns | Out-Null
+        Write-Host "已清除 DNS 快取 (DNS cache cleared)" -ForegroundColor Green
+    } catch {
+        Write-Host "還原 HOSTS 檔案時發生錯誤: $($_) (Error restoring HOSTS file: $($_))" -ForegroundColor Red
+    }
+
+    # 2. 移除排程任務
+    $taskName = "WeeklyHostsUpdate"
+    Write-Host "正在檢查自動更新排程... (Checking auto-update schedule...)" -ForegroundColor Yellow
+    try {
+        $taskExists = Get-ScheduledTask -TaskName $taskName -ErrorAction SilentlyContinue
+        if ($taskExists) {
+            Unregister-ScheduledTask -TaskName $taskName -Confirm:$false -ErrorAction Stop
+            Write-Host "已成功移除 WeeklyHostsUpdate 排程 (WeeklyHostsUpdate task removed)" -ForegroundColor Green
+        } else {
+            Write-Host "未發現自動更新排程，無需移除 (No auto-update task found)" -ForegroundColor Gray
+        }
+    } catch {
+        Write-Host "移除排程任務失敗: $($_) (Failed to remove scheduled task: $($_))" -ForegroundColor Red
+    }
+
+    # 3. 移除防火牆規則 (呼叫已修正的函數)
+    Block-AdobeFirewall -Delete
+
+    # 4. 顯示重要提示
+    Write-Host "`n[重要提示 / Important Note]" -ForegroundColor Magenta
+    Write-Host "HOSTS、防火牆與排程已還原。" -ForegroundColor Magenta
+    Write-Host "由於此腳本曾在更新模式下執行了 'sc delete' (刪除服務) 並刪除了 Adobe 相關資料夾，這些操作無法透過腳本還原。" -ForegroundColor Magenta
+    Write-Host "如果您的 Adobe 軟體無法開啟，請重新安裝 Adobe Creative Cloud。" -ForegroundColor Magenta
+    Write-Host "(Since services and files were deleted by previous runs, please reinstall Adobe Creative Cloud if apps fail to launch.)" -ForegroundColor Magenta
+}
+
 # 使用者選擇更新模式
-Write-Host "`n請選擇更新模式 (Please select update mode):" -ForegroundColor Cyan
+Write-Host "`n請選擇操作模式 (Please select operation mode):" -ForegroundColor Cyan
 Write-Host "1. 僅執行本次更新 (Run update once)" -ForegroundColor Yellow
 Write-Host "2. 設定每周自動更新 (Schedule weekly update)" -ForegroundColor Yellow
 Write-Host "3. 僅刪除防火牆規則 (Delete firewall rules only)" -ForegroundColor Yellow
-$choice = Read-Host "輸入 1, 2 或 3 (Enter 1, 2, or 3)"
+Write-Host "4. 全部還原 (Restore default settings: Reset HOSTS, remove schedule & firewall)" -ForegroundColor Green
+$choice = Read-Host "輸入 1, 2, 3 或 4 (Enter 1, 2, 3 or 4)"
 
 if ($choice -eq "1") {
     Update-HostsAndServices
@@ -311,6 +395,8 @@ if ($choice -eq "1") {
     }
 } elseif ($choice -eq "3") {
     Block-AdobeFirewall -Delete
+} elseif ($choice -eq "4") {
+    Restore-DefaultSettings
 } else {
     Write-Host "無效的選擇，腳本將退出 (Invalid choice, script will exit)" -ForegroundColor Red
 }
@@ -323,7 +409,7 @@ $authorInfo = @"
 ====================================================
    Adobe Hosts Update, Service Removal, and Firewall Tool
    Author/作者: blues32767
-   Version/版本: v3.20250420
+   Version/版本: v3.20250420 (Modified with Loop Fix)
    https://github.com/blues32767
    Firewall functionality adapted from: https://github.com/ph33nx
 ====================================================
