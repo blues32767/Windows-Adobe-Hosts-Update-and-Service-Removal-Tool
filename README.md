@@ -156,6 +156,12 @@ Feel free to submit issues or pull requests to improve this script!
 
 ## 更新紀錄 / Change Log
 
+- **2026-01-14 (v2.20260114)**:
+  - **新增功能 / New Feature**: 
+    - [ZH] 全部設定還原功能：清除防火牆設定、排程設定、Host 設定，俾利正版 Adobe 安裝。
+    - [EN] Restore All Settings: Clears firewall rules, scheduled tasks, and host settings to facilitate genuine Adobe installation.
+  - **版本 / Version**: `v2.20260114`
+
 - **2025-04-20**:
   - **新增功能**: 添加封鎖 Adobe 相關可執行文件的防火牆功能，阻止其入站和出站網路訪問，支援刪除現有規則的選項（改進自 https://github.com/ph33nx）。
   - **New Feature**: Added firewall blocking for Adobe-related executables, preventing inbound and outbound network access, with an option to delete existing rules (adapted from https://github.com/ph33nx).
