@@ -1,6 +1,6 @@
 # Windows Adobe Hosts Update and Service Removal Tool
 
-**版本/Version**: v3.20250420\
+**版本/Version**: v2.20260114\
 **作者/Author**: blues32767\
 **GitHub**: https://github.com/blues32767
 
