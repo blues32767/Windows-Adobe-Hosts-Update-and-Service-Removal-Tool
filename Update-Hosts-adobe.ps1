@@ -409,9 +409,8 @@ $authorInfo = @"
 ====================================================
    Adobe Hosts Update, Service Removal, and Firewall Tool
    Author/作者: blues32767
-   Version/版本: v3.20250420 (Modified with Loop Fix)
+   Version/版本: v2.20260114 (Modified with Loop Fix)
    https://github.com/blues32767
-   Firewall functionality adapted from: https://github.com/ph33nx
 ====================================================
 
 "@
