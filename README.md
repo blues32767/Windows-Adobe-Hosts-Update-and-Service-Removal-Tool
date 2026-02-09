@@ -10,6 +10,16 @@
 下載最新版本 / Download the latest version:\
 https://github.com/blues32767/Windows-Adobe-Hosts-Update-and-Service-Removal-Tool/releases/download/v2.20260114/Update-Hosts-adobe-hostsfromweb.zip
 
+## ☕ 支持開發者 (Support Me)
+
+如果您覺得這個工具幫您省下了寶貴的時間，歡迎請我喝杯咖啡，這將支持我繼續維護與開發更多好用的工具！
+
+If this tool saved you time, consider buying me a coffee! Your support helps me maintain this project and build more open-source tools.
+
+<a href="https://www.buymeacoffee.com/blues32767" target="_blank">
+  <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" >
+</a>
+
 ## 啟動方式 / How to Run
 
 此腳本透過 `.bat` 檔案以管理員權限啟動 PowerShell 腳本。請按照以下步驟執行：\
